@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ILUMINATE - Leenjii Online</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #111827;
+      color: white;
+      padding: 18px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 18px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #182848, #4b6cb7);
+      color: white;
+      padding: 80px 7%;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: 45px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: auto;
+      font-size: 18px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 25px;
+      padding: 13px 25px;
+      background: white;
+      color: #182848;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    section {
+      padding: 55px 7%;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 30px;
+    }
+
+    .courses {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .course {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px #00000012;
+    }
+
+    .course h3 {
+      margin-bottom: 10px;
+    }
+
+    .course button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      background: #182848;
+      color: white;
+      border: none;
+      border-radius: 7px;
+    }
+
+    .form {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px #00000012;
+    }
+
+    input {
+      width: 100%;
+      padding: 13px;
+      margin: 8px 0;
+      border: 1px solid #ddd;
+      border-radius: 7px;
+    }
+
+    .submit {
+      width: 100%;
+      padding: 13px;
+      margin-top: 10px;
+      background: #182848;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      font-weight: bold;
+    }
+
+    footer {
+      background: #111827;
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+
+    @media (max-width: 700px) {
+      nav {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">ILUMINATE</div>
+
+  <nav>
+    <a href="#home">Mana</a>
+    <a href="#courses">Koorsii</a>
+    <a href="#register">Galmaa'i</a>
+    <a href="#login">Seeni</a>
+  </nav>
+</header>
+
+<section class="hero" id="home">
+  <h1>ILUMINATE</h1>
+
+  <p>
+    Platformii leenjii online Afaan Oromootiin
+    dandeettii kee guddisuuf si gargaaru.
+  </p>
+
+  <a href="#courses" class="btn">Koorsii Ilaali</a>
+</section>
+
+<section id="courses">
+  <h2>📚 Koorsiiwwan Keenya</h2>
+
+  <div class="courses">
+
+    <div class="course">
+      <h3>💻 Computer Basics</h3>
+      <p>
+        Bu'uura computer fi technology baradhu.
+      </p>
+      <button onclick="startCourse('Computer Basics')">
+        Koorsii Jalqabi
+      </button>
+    </div>
+
+    <div class="course">
+      <h3>🌐 Digital Skills</h3>
+      <p>
+        Dandeettii dijitaalaa fi internetii baradhu.
+      </p>
+      <button onclick="startCourse('Digital Skills')">
+        Koorsii Jalqabi
+      </button>
+    </div>
+
+    <div class="course">
+      <h3>🇬🇧 English</h3>
+      <p>
+        Afaan Ingilizii tartiibaan baradhu.
+      </p>
+      <button onclick="startCourse('English')">
+        Koorsii Jalqabi
+      </button>
+    </div>
+
+    <div class="course">
+      <h3>💼 Hojii Online</h3>
+      <p>
+        Akkaataa hojii online barbaaduu fi dandeettii
+        hojii dijitaalaa baradhu.
+      </p>
+      <button onclick="startCourse('Hojii Online')">
+        Koorsii Jalqabi
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<section id="register">
+  <h2>📝 Galmaa'i</h2>
+
+  <div class="form">
+
+    <input
+      type="text"
+      id="name"
+      placeholder="Maqaa kee guutuu"
+    >
+
+    <input
+      type="tel"
+      id="phone"
+      placeholder="Lakkoofsa bilbilaa"
+    >
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Email"
+    >
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+    >
+
+    <button class="submit" onclick="registerUser()">
+      Account Uumi
+    </button>
+
+  </div>
+</section>
+
+<section id="login">
+  <h2>🔐 Seeni</h2>
+
+  <div class="form">
+
+    <input
+      type="email"
+      id="loginEmail"
+      placeholder="Email"
+    >
+
+    <input
+      type="password"
+      id="loginPassword"
+      placeholder="Password"
+    >
+
+    <button class="submit" onclick="loginUser()">
+      Seeni
+    </button>
+
+  </div>
+</section>
+
+<section>
+  <h2>🏆 Certificate</h2>
+
+  <div class="form">
+    <p style="text-align:center;">
+      Koorsii xumurte booda certificate argachuuf
+      carraan ni jira.
+    </p>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 ILUMINATE</p>
+  <p>Leenjii Online Afaan Oromoo</p>
+</footer>
+
+<script>
+
+function startCourse(course) {
+  alert(
+    "Koorsii " + course +
+    " filatteetta. Fuula leenjii itti aanu irratti banama."
+  );
+}
+
+function registerUser() {
+
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let email = document.getElementById("email").value;
+
+  if (name === "" || phone === "" || email === "") {
+    alert("Mee odeeffannoo barbaachisaa guuti.");
+    return;
+  }
+
+  alert(
+    "Galatoomi " + name +
+    "! Galmeen kee fudhatameera."
+  );
+}
+
+function loginUser() {
+
+  let email = document.getElementById("loginEmail").value;
+  let password = document.getElementById("loginPassword").value;
+
+  if (email === "" || password === "") {
+    alert("Email fi password kee guuti.");
+    return;
+  }
+
+  alert("Seensa kee ilaalameera. Baga nagaan dhuftan!");
+}
+
+</script>
+
+</body>
+</html>
