@@ -58,11 +58,13 @@
       background: #172a52;
       color: white;
       font-size: 16px;
+      cursor: pointer;
     }
 
     #message {
       margin-top: 15px;
       text-align: center;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -76,85 +78,168 @@
 
 <div class="hero">
   <h2>Baga Nagaan Dhuftan!</h2>
-  <p>Baradhu • Dandeettii kee guddifachuu • Gara fuulduraatti tarkaanfadhi</p>
+  <p>
+    Baradhu • Dandeettii kee guddifadhu •
+    Gara fuulduraatti tarkaanfadhi
+  </p>
 </div>
 
 <section>
   <div class="box">
+
     <h2>📝 Galmaa'i</h2>
 
-    <input id="email" type="email" placeholder="Email kee">
-    <input id="password" type="password" placeholder="Password kee">
+    <input
+      id="name"
+      type="text"
+      placeholder="Maqaa kee"
+    >
 
-    <button id="signup">Account Uumi</button>
-    <button id="login">Seeni</button>
+    <input
+      id="phone"
+      type="tel"
+      placeholder="Lakkoofsa bilbilaa (09XXXXXXXX)"
+    >
+
+    <input
+      id="email"
+      type="email"
+      placeholder="Email kee"
+    >
+
+    <input
+      id="password"
+      type="password"
+      placeholder="Password kee"
+    >
+
+    <button id="signup">
+      Account Uumi
+    </button>
+
+    <button id="login">
+      Seeni
+    </button>
 
     <p id="message"></p>
+
   </div>
 </section>
 
 <script type="module">
 
-  import { initializeApp } from
-    "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-  import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
-  } from
-    "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
-    authDomain: "iluminanti-42c47.firebaseapp.com",
-    projectId: "iluminanti-42c47",
-    storageBucket: "iluminanti-42c47.firebasestorage.app",
-    messagingSenderId: "487766650464",
-    appId: "1:487766650464:web:af9aaf5bcb5bb17e679d05"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-
-  const email = document.getElementById("email");
-  const password = document.getElementById("password");
-  const message = document.getElementById("message");
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+} from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 
-  document.getElementById("signup").onclick = async () => {
-
-    try {
-      await createUserWithEmailAndPassword(
-        auth,
-        email.value,
-        password.value
-      );
-
-      message.textContent = "✅ Account kee uumameera!";
-
-    } catch (error) {
-      message.textContent = "❌ " + error.message;
-    }
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
+  authDomain: "iluminanti-42c47.firebaseapp.com",
+  projectId: "iluminanti-42c47",
+  storageBucket: "iluminanti-42c47.firebasestorage.app",
+  messagingSenderId: "487766650464",
+  appId: "1:487766650464:web:af9aaf5bcb5bb17e679d05"
+};
 
 
-  document.getElementById("login").onclick = async () => {
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-    try {
-      await signInWithEmailAndPassword(
-        auth,
-        email.value,
-        password.value
-      );
-window.location.href = "dashboard.html";
-      
 
-    } catch (error) {
-      message.textContent = "❌ Email ykn password sirrii miti.";
-    }
-  };
+const name = document.getElementById("name");
+const phone = document.getElementById("phone");
+const email = document.getElementById("email");
+const password = document.getElementById("password");
+const message = document.getElementById("message");
+
+
+document.getElementById("signup").onclick =
+async () => {
+
+  const userName = name.value.trim();
+  const userPhone = phone.value.trim();
+  const userEmail = email.value.trim();
+  const userPassword = password.value;
+
+
+  if (!userName) {
+    message.textContent =
+      "⚠️ Mee maqaa kee galchi.";
+    return;
+  }
+
+
+  if (!/^09[0-9]{8}$/.test(userPhone)) {
+    message.textContent =
+      "⚠️ Lakkoofsa bilbilaa sirrii galchi.";
+    return;
+  }
+
+
+  if (!userEmail) {
+    message.textContent =
+      "⚠️ Mee email kee galchi.";
+    return;
+  }
+
+
+  if (userPassword.length < 6) {
+    message.textContent =
+      "⚠️ Password yoo xiqqaate qubee 6 qabaachuu qaba.";
+    return;
+  }
+
+
+  try {
+
+    await createUserWithEmailAndPassword(
+      auth,
+      userEmail,
+      userPassword
+    );
+
+    message.textContent =
+      "✅ Account kee uumameera! Amma Seeni.";
+
+  } catch (error) {
+
+    message.textContent =
+      "❌ Account uumuu hin dandeenye.";
+
+  }
+
+};
+
+
+document.getElementById("login").onclick =
+async () => {
+
+  try {
+
+    await signInWithEmailAndPassword(
+      auth,
+      email.value.trim(),
+      password.value
+    );
+
+    window.location.href =
+      "dashboard.html";
+
+  } catch (error) {
+
+    message.textContent =
+      "❌ Email ykn password sirrii miti.";
+
+  }
+
+};
 
 </script>
 
