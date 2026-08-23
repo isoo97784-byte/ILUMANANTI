@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="om">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -104,9 +105,11 @@ button{
   text-align:center;
   font-weight:bold;
   padding:10px;
+  word-break:break-word;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -122,8 +125,6 @@ button{
 
 <div class="container">
 
-
-<!-- ADMIN LOGIN -->
 
 <div class="card">
 
@@ -157,29 +158,24 @@ class="message">
 </div>
 
 
-<!-- MEMBERS -->
-
 <div
 class="card"
 id="membersBox"
 style="display:none;">
 
-<h2>👥 Miseensota</h2>
+<h2>👥 Miseensota ILUMINANTI</h2>
 
-<div id="members">
-
-</div>
+<div id="members"></div>
 
 <button
 class="logout"
 id="logout">
 
-Ba'i
+🚪 Ba'i
 
 </button>
 
 </div>
-
 
 </div>
 
@@ -224,6 +220,8 @@ updateDoc
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
+
+/* FIREBASE */
 
 const firebaseConfig = {
 
@@ -278,13 +276,11 @@ document.getElementById(
 ADMIN EMAIL
 =========================
 
-IMPORTANT:
-As keessatti email admin
-kee barreessi.
+EMAIL KEE ASITTI JIJJIRI
 */
 
 const ADMIN_EMAIL =
-"admin@iluminanti.com";
+"EMAIL_KEE_ASITTI_GALCHI";
 
 
 /* =========================
@@ -309,7 +305,7 @@ document.getElementById(
 if(!email || !password){
 
 loginMessage.textContent =
-"⚠️ Email fi password galchi.";
+"⚠️ Admin Email fi Password galchi.";
 
 return;
 
@@ -319,7 +315,7 @@ return;
 if(email !== ADMIN_EMAIL){
 
 loginMessage.textContent =
-"❌ Ati admin miti.";
+"❌ Email kun admin miti.";
 
 return;
 
@@ -361,7 +357,7 @@ error.message;
 
 
 /* =========================
-LOAD MEMBERS
+MEMBERS
 ========================= */
 
 async function loadMembers(){
@@ -415,7 +411,9 @@ div.className =
 
 div.innerHTML = `
 
-<h3>👤 ${member.name || "Maqaan hin jiru"}</h3>
+<h3>
+👤 ${member.name || "Maqaan hin jiru"}
+</h3>
 
 <p>
 📱 <strong>Phone:</strong>
