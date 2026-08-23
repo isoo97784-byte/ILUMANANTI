@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ILUMINANTI - Admin</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#172033;
+}
+
+header{
+  background:#172a52;
+  color:white;
+  padding:22px 15px;
+  text-align:center;
+}
+
+.container{
+  max-width:900px;
+  margin:25px auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  margin-bottom:20px;
+  border-radius:15px;
+  box-shadow:0 4px 15px #0002;
+}
+
+input{
+  width:100%;
+  padding:13px;
+  margin:8px 0 15px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:15px;
+}
+
+button{
+  padding:12px 15px;
+  border:0;
+  border-radius:8px;
+  color:white;
+  font-size:15px;
+  cursor:pointer;
+  margin:4px;
+}
+
+.login{
+  background:#172a52;
+  width:100%;
+}
+
+.approve{
+  background:#168a45;
+}
+
+.reject{
+  background:#b3261e;
+}
+
+.logout{
+  background:#555;
+  width:100%;
+}
+
+.member{
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:18px;
+  margin:15px 0;
+}
+
+.pending{
+  border-left:6px solid #f0a500;
+}
+
+.approved{
+  border-left:6px solid #168a45;
+}
+
+.rejected{
+  border-left:6px solid #b3261e;
+}
+
+.status{
+  font-weight:bold;
+}
+
+.message{
+  text-align:center;
+  font-weight:bold;
+  padding:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>ILUMINANTI</h1>
+
+<p>Admin Dashboard</p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- ADMIN LOGIN -->
+
+<div class="card">
+
+<h2>🔐 Admin Login</h2>
+
+<input
+id="adminEmail"
+type="email"
+placeholder="Admin Email"
+>
+
+<input
+id="adminPassword"
+type="password"
+placeholder="Admin Password"
+>
+
+<button
+class="login"
+id="adminLogin">
+
+Seeni
+
+</button>
+
+<p
+id="loginMessage"
+class="message">
+</p>
+
+</div>
+
+
+<!-- MEMBERS -->
+
+<div
+class="card"
+id="membersBox"
+style="display:none;">
+
+<h2>👥 Miseensota</h2>
+
+<div id="members">
+
+</div>
+
+<button
+class="logout"
+id="logout">
+
+Ba'i
+
+</button>
+
+</div>
+
+
+</div>
+
+
+<script type="module">
+
+
+import { initializeApp }
+
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+
+getAuth,
+
+signInWithEmailAndPassword,
+
+signOut
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+
+getFirestore,
+
+collection,
+
+getDocs,
+
+doc,
+
+updateDoc
+
+}
+
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+apiKey:
+"AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
+
+authDomain:
+"iluminanti-42c47.firebaseapp.com",
+
+projectId:
+"iluminanti-42c47",
+
+storageBucket:
+"iluminanti-42c47.firebasestorage.app",
+
+messagingSenderId:
+"487766650464",
+
+appId:
+"1:487766650464:web:af9aaf5bcb5bb17e679d05"
+
+};
+
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+const db =
+getFirestore(app);
+
+
+const loginMessage =
+document.getElementById(
+"loginMessage"
+);
+
+const membersBox =
+document.getElementById(
+"membersBox"
+);
+
+const membersDiv =
+document.getElementById(
+"members"
+);
+
+
+/* =========================
+ADMIN EMAIL
+=========================
+
+IMPORTANT:
+As keessatti email admin
+kee barreessi.
+*/
+
+const ADMIN_EMAIL =
+"admin@iluminanti.com";
+
+
+/* =========================
+ADMIN LOGIN
+========================= */
+
+document.getElementById(
+"adminLogin"
+).onclick = async function(){
+
+const email =
+document.getElementById(
+"adminEmail"
+).value.trim();
+
+const password =
+document.getElementById(
+"adminPassword"
+).value;
+
+
+if(!email || !password){
+
+loginMessage.textContent =
+"⚠️ Email fi password galchi.";
+
+return;
+
+}
+
+
+if(email !== ADMIN_EMAIL){
+
+loginMessage.textContent =
+"❌ Ati admin miti.";
+
+return;
+
+}
+
+
+try{
+
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
+
+
+loginMessage.textContent =
+"✅ Admin seeneera.";
+
+membersBox.style.display =
+"block";
+
+loadMembers();
+
+}
+
+catch(error){
+
+console.error(error);
+
+loginMessage.textContent =
+"❌ " +
+error.code +
+" — " +
+error.message;
+
+}
+
+};
+
+
+/* =========================
+LOAD MEMBERS
+========================= */
+
+async function loadMembers(){
+
+membersDiv.innerHTML =
+"⏳ Miseensota fe'aa jira...";
+
+
+try{
+
+const snapshot =
+await getDocs(
+collection(db,"members")
+);
+
+
+if(snapshot.empty){
+
+membersDiv.innerHTML =
+"<p>📭 Miseensi tokko illee hin jiru.</p>";
+
+return;
+
+}
+
+
+membersDiv.innerHTML = "";
+
+
+snapshot.forEach(function(
+memberDoc
+){
+
+const member =
+memberDoc.data();
+
+const id =
+memberDoc.id;
+
+
+const div =
+document.createElement(
+"div"
+);
+
+
+div.className =
+"member " +
+(member.status || "pending");
+
+
+div.innerHTML = `
+
+<h3>👤 ${member.name || "Maqaan hin jiru"}</h3>
+
+<p>
+📱 <strong>Phone:</strong>
+${member.phone || "-"}
+</p>
+
+<p>
+📧 <strong>Email:</strong>
+${member.email || "-"}
+</p>
+
+<p>
+🪪 <strong>Document:</strong>
+${member.documentType || "-"}
+</p>
+
+<p>
+📄 <strong>File:</strong>
+${member.documentFileName || "-"}
+</p>
+
+<p class="status">
+📌 Status:
+${member.status || "pending"}
+</p>
+
+<button
+class="approve"
+onclick="approveMember('${id}')">
+
+✅ Approve
+
+</button>
+
+<button
+class="reject"
+onclick="rejectMember('${id}')">
+
+❌ Reject
+
+</button>
+
+`;
+
+membersDiv.appendChild(div);
+
+});
+
+}
+
+catch(error){
+
+console.error(error);
+
+membersDiv.innerHTML =
+"❌ Miseensota arguu hin dandeenye.<br>" +
+error.code;
+
+}
+
+}
+
+
+/* =========================
+APPROVE
+========================= */
+
+window.approveMember =
+async function(id){
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"members",
+id
+),
+
+{
+status:"approved"
+}
+
+);
+
+alert(
+"✅ Miseensi approve ta'eera."
+);
+
+loadMembers();
+
+}
+
+catch(error){
+
+alert(
+"❌ Approve hin milkoofne: " +
+error.message
+);
+
+}
+
+};
+
+
+/* =========================
+REJECT
+========================= */
+
+window.rejectMember =
+async function(id){
+
+try{
+
+await updateDoc(
+
+doc(
+db,
+"members",
+id
+),
+
+{
+status:"rejected"
+}
+
+);
+
+alert(
+"❌ Miseensi rejected ta'eera."
+);
+
+loadMembers();
+
+}
+
+catch(error){
+
+alert(
+"❌ Reject hin milkoofne: " +
+error.message
+);
+
+}
+
+};
+
+
+/* =========================
+LOGOUT
+========================= */
+
+document.getElementById(
+"logout"
+).onclick = async function(){
+
+await signOut(auth);
+
+membersBox.style.display =
+"none";
+
+loginMessage.textContent =
+"Admin ba'eera.";
+
+};
+
+</script>
+
+</body>
+</html>
