@@ -1,86 +1,114 @@
 <!DOCTYPE html>
 <html lang="om">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ILUMINANTI Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f4f7fb;
-      color: #172033;
-    }
+<title>ILUMINANTI Dashboard</title>
 
-    header {
-      background: #172a52;
-      color: white;
-      padding: 25px;
-      text-align: center;
-    }
+<style>
+*{
+  box-sizing:border-box;
+}
 
-    .box {
-      max-width: 600px;
-      margin: 30px auto;
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px #0002;
-    }
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#172033;
+}
 
-    .course,
-    .payment-card {
-      padding: 18px;
-      margin: 12px 0;
-      background: #f1f5ff;
-      border-radius: 10px;
-    }
+header{
+  background:#172a52;
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+}
 
-    button {
-      width: 100%;
-      padding: 13px;
-      background: #172a52;
-      color: white;
-      border: 0;
-      border-radius: 8px;
-      margin-top: 10px;
-      cursor: pointer;
-    }
+.container{
+  max-width:650px;
+  margin:25px auto;
+  padding:15px;
+}
 
-    .payment-section {
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 2px solid #eee;
-    }
+.card{
+  background:white;
+  padding:20px;
+  margin-bottom:18px;
+  border-radius:15px;
+  box-shadow:0 4px 15px #0002;
+}
 
-    input {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 13px;
-      margin: 8px 0 15px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-    }
+.course{
+  background:#f1f5ff;
+  padding:15px;
+  margin:12px 0;
+  border-radius:10px;
+}
 
-    #paymentBox {
-      display: none;
-      margin-top: 20px;
-      padding: 20px;
-      background: #f1f5ff;
-      border-radius: 12px;
-      text-align: center;
-    }
+button{
+  width:100%;
+  padding:13px;
+  margin-top:10px;
+  border:0;
+  border-radius:8px;
+  background:#172a52;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
 
-    #paymentNumber {
-      font-size: 26px;
-    }
+button:active{
+  transform:scale(.98);
+}
 
-    #paymentMessage {
-      margin-top: 15px;
-      font-weight: bold;
-    }
-  </style>
+input{
+  width:100%;
+  padding:13px;
+  margin:8px 0 15px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:15px;
+}
+
+.payment-method{
+  border:1px solid #ddd;
+  padding:15px;
+  margin:12px 0;
+  border-radius:12px;
+  background:#fafafa;
+}
+
+.number{
+  background:#eef3ff;
+  padding:14px;
+  border-radius:8px;
+  font-size:20px;
+  font-weight:bold;
+  word-break:break-all;
+  text-align:center;
+}
+
+.copy{
+  background:#1976d2;
+}
+
+.confirm{
+  background:#168a45;
+}
+
+.message{
+  margin-top:15px;
+  padding:12px;
+  border-radius:8px;
+  font-weight:bold;
+  text-align:center;
+}
+
+.logout{
+  background:#b3261e;
+}
+</style>
 </head>
 
 <body>
@@ -90,38 +118,50 @@
   <p>Dashboard Barataa</p>
 </header>
 
-<div class="box">
+<div class="container">
 
-  <h2>🎓 Baga Nagaan Dhuftan!</h2>
-  <p>As keessatti koorsiiwwan kee argatta.</p>
-
-  <div class="course">
-    <h3>💻 Computer Basics</h3>
-    <p>Bu'uura computer baradhu.</p>
-    <button>Koorsii Jalqabi</button>
+  <!-- WELCOME -->
+  <div class="card">
+    <h2>🎓 Baga Nagaan Dhuftan!</h2>
+    <p>Koorsii fi kaffaltii kee as irraa bulchi.</p>
   </div>
 
-  <div class="course">
-    <h3>🌐 Digital Skills</h3>
-    <p>Dandeettii dijitaalaa baradhu.</p>
-    <button>Koorsii Jalqabi</button>
-  </div>
 
-  <div class="course">
-    <h3>🇬🇧 Afaan Ingilizii</h3>
-    <p>Afaan Ingilizii baradhu.</p>
-    <button>Koorsii Jalqabi</button>
+  <!-- COURSES -->
+  <div class="card">
+
+    <h2>📚 Koorsiiwwan</h2>
+
+    <div class="course">
+      <h3>💻 Computer Basics</h3>
+      <p>Bu'uura computer baradhu.</p>
+      <button>Koorsii Jalqabi</button>
+    </div>
+
+    <div class="course">
+      <h3>🌐 Digital Skills</h3>
+      <p>Dandeettii dijitaalaa baradhu.</p>
+      <button>Koorsii Jalqabi</button>
+    </div>
+
+    <div class="course">
+      <h3>🇬🇧 Afaan Ingilizii</h3>
+      <p>Afaan Ingilizii baradhu.</p>
+      <button>Koorsii Jalqabi</button>
+    </div>
+
   </div>
 
 
   <!-- PAYMENT -->
-
-  <section class="payment-section">
+  <div class="card">
 
     <h2>💰 Kaffaltii</h2>
-    <p>Amount fi mala kaffaltii filadhu.</p>
+
+    <p>Amount kaffaltu galchi.</p>
 
     <label>Amount (Birr)</label>
+
     <input
       id="amount"
       type="number"
@@ -129,28 +169,71 @@
       placeholder="Fakkeenya: 100"
     >
 
-    <h3>Payment Method</h3>
 
-    <button onclick="showPayment('Telebirr')">
-      📱 Telebirr Filadhu
-    </button>
+    <!-- ACCOUNT -->
+    <div class="payment-method">
 
-    <button onclick="showPayment('CBE Birr')">
-      🏦 CBE Birr Filadhu
-    </button>
+      <h3>🏦 Account Number</h3>
 
-    <button onclick="showPayment('Account')">
-      🏦 Account Filadhu
-    </button>
+      <p>Herrega kaffaltii:</p>
+
+      <div class="number" id="accountNumber">
+        1000237524547
+      </div>
+
+      <button
+        class="copy"
+        onclick="copyNumber('accountNumber')">
+        📋 Account Number Copy Godhi
+      </button>
+
+    </div>
 
 
-    <div id="paymentBox">
+    <!-- TELEBIRR -->
+    <div class="payment-method">
 
-      <h3 id="selectedMethod"></h3>
+      <h3>📱 Telebirr</h3>
 
-      <p>Lakkoofsa kaffaltii:</p>
+      <p>Lakkoofsa Telebirr:</p>
 
-      <h2 id="paymentNumber">0917118488</h2>
+      <div class="number" id="telebirrNumber">
+        0917118488
+      </div>
+
+      <button
+        class="copy"
+        onclick="copyNumber('telebirrNumber')">
+        📋 Telebirr Number Copy Godhi
+      </button>
+
+    </div>
+
+
+    <!-- CBE BIRR -->
+    <div class="payment-method">
+
+      <h3>📱 CBE Birr</h3>
+
+      <p>Lakkoofsa CBE Birr:</p>
+
+      <div class="number" id="cbeNumber">
+        0917118488
+      </div>
+
+      <button
+        class="copy"
+        onclick="copyNumber('cbeNumber')">
+        📋 CBE Birr Number Copy Godhi
+      </button>
+
+    </div>
+
+
+    <!-- TRANSACTION -->
+    <div class="payment-method">
+
+      <h3>🧾 Ragaa Kaffaltii</h3>
 
       <label>Transaction ID</label>
 
@@ -160,66 +243,131 @@
         placeholder="Transaction ID galchi"
       >
 
-      <button onclick="confirmPayment()">
+
+      <label>Receipt / Screenshot</label>
+
+      <input
+        id="receipt"
+        type="file"
+        accept="image/*"
+      >
+
+
+      <button
+        class="confirm"
+        onclick="confirmPayment()">
         ✅ Confirm Payment
       </button>
 
-      <p id="paymentMessage"></p>
+      <div
+        id="paymentMessage"
+        class="message">
+      </div>
 
     </div>
 
-  </section>
+  </div>
 
 
-  <button onclick="logout()">Ba'i</button>
+  <!-- LOGOUT -->
+  <button
+    class="logout"
+    onclick="logout()">
+    🚪 Ba'i
+  </button>
 
 </div>
 
 
 <script>
 
-function showPayment(method) {
+function copyNumber(id){
 
-  document.getElementById("paymentBox").style.display = "block";
+  const number =
+    document.getElementById(id).innerText.trim();
 
-  document.getElementById("selectedMethod").innerText =
-    "Filannoo: " + method;
+  if(navigator.clipboard){
 
-  document.getElementById("paymentNumber").innerText =
-    "0917118488";
+    navigator.clipboard.writeText(number)
+      .then(function(){
+
+        alert(
+          "✅ Lakkoofsi copy ta'eera: " + number
+        );
+
+      })
+      .catch(function(){
+
+        alert(
+          "Lakkoofsa kana copy godhi: " + number
+        );
+
+      });
+
+  }else{
+
+    alert(
+      "Lakkoofsa kana copy godhi: " + number
+    );
+
+  }
+
 }
 
 
-function confirmPayment() {
+function confirmPayment(){
 
   const amount =
     document.getElementById("amount").value;
 
   const transactionId =
-    document.getElementById("transactionId").value;
+    document.getElementById("transactionId")
+    .value.trim();
+
+  const receipt =
+    document.getElementById("receipt")
+    .files.length;
 
   const message =
     document.getElementById("paymentMessage");
 
 
-  if (!amount || !transactionId) {
+  if(!amount){
 
     message.innerText =
-      "⚠️ Amount fi Transaction ID guuti.";
+      "⚠️ Mee Amount galchi.";
+
+    return;
+  }
+
+
+  if(!transactionId){
+
+    message.innerText =
+      "⚠️ Mee Transaction ID galchi.";
+
+    return;
+  }
+
+
+  if(!receipt){
+
+    message.innerText =
+      "⚠️ Mee receipt/screenshot galchi.";
 
     return;
   }
 
 
   message.innerText =
-    "✅ Payment request kee galmaa'eera.";
+    "✅ Ragaan kaffaltii kee fudhatameera.";
 
 }
 
 
-function logout() {
+function logout(){
 
-  window.location.href = "index.html";
+  window.location.href="index.html";
 
 }
 
