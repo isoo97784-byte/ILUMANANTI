@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="om">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ILUMINANTI - Leenjii Online</title>
 
 <style>
+
 *{
   box-sizing:border-box;
 }
@@ -96,64 +98,101 @@ button:active{
   font-weight:bold;
   line-height:1.6;
 }
+
 </style>
+
 </head>
 
 <body>
 
 <header>
-  <h1>ILUMINANTI</h1>
-  <p>Leenjii Online Afaan Oromoo</p>
+
+<h1>ILUMINANTI</h1>
+
+<p>
+Leenjii Online Afaan Oromoo
+</p>
+
 </header>
 
+
 <div class="hero">
-  <h2>Baga Nagaan Dhuftan!</h2>
-  <p>
-    Baradhu • Dandeettii kee guddifadhu •
-    Gara fuulduraatti tarkaanfadhi
-  </p>
+
+<h2>
+Baga Nagaan Dhuftan!
+</h2>
+
+<p>
+Baradhu • Dandeettii kee guddifadhu •
+Gara fuulduraatti tarkaanfadhi
+</p>
+
 </div>
+
 
 <section>
 
 <div class="box">
 
-<h2>📝 Galmee Miseensummaa</h2>
+<h2>
+📝 Galmee Miseensummaa
+</h2>
 
-<label>Maqaa Guutuu</label>
+
+<label>
+Maqaa Guutuu
+</label>
+
 <input
-  id="name"
-  type="text"
-  placeholder="Maqaa kee guutuu"
+id="name"
+type="text"
+placeholder="Maqaa kee guutuu"
 >
 
-<label>Lakkoofsa Bilbilaa</label>
+
+<label>
+Lakkoofsa Bilbilaa
+</label>
+
 <input
-  id="phone"
-  type="tel"
-  placeholder="09XXXXXXXX"
-  maxlength="10"
+id="phone"
+type="tel"
+placeholder="09XXXXXXXX"
+maxlength="10"
 >
 
-<label>Email</label>
+
+<label>
+Email
+</label>
+
 <input
-  id="email"
-  type="email"
-  placeholder="Email kee"
+id="email"
+type="email"
+placeholder="Email kee"
 >
 
-<label>Password</label>
+
+<label>
+Password
+</label>
+
 <input
-  id="password"
-  type="password"
-  placeholder="Password kee"
+id="password"
+type="password"
+placeholder="Password kee"
 >
+
 
 <div class="document-box">
 
-<h3>🪪 Mirkaneessa Eenyummaa</h3>
+<h3>
+🪪 Mirkaneessa Eenyummaa
+</h3>
 
-<label>Document filadhu</label>
+<label>
+Document filadhu
+</label>
 
 <select id="documentType">
 
@@ -175,22 +214,44 @@ Driving Licence
 
 </select>
 
+
+<label>
+Document Upload
+</label>
+
+<input
+id="documentFile"
+type="file"
+accept="image/*,.pdf"
+>
+
+
 <p class="notice">
-🔒 Odeeffannoon kee mirkaneessaaf qofa fayyada.
+
+🔒 Document kee mirkaneessaaf qofa fayyada.
 Document nama biraa hin fayyadamin.
+
 </p>
 
 </div>
 
+
 <button id="signup">
-  ✅ Miseensa Ta'i
+
+✅ Miseensa Ta'i
+
 </button>
+
 
 <button id="login">
-  🔐 Seeni
+
+🔐 Seeni
+
 </button>
 
+
 <p id="message"></p>
+
 
 </div>
 
@@ -199,315 +260,405 @@ Document nama biraa hin fayyadamin.
 
 <script type="module">
 
+
 import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 
 import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+
+getAuth,
+
+createUserWithEmailAndPassword,
+
+signInWithEmailAndPassword
+
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
 
 import {
-  getFirestore,
-  doc,
-  setDoc,
-  getDoc
+
+getFirestore,
+
+doc,
+
+setDoc,
+
+getDoc
+
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
 
-  apiKey:
-  "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
+apiKey:
+"AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
 
-  authDomain:
-  "iluminanti-42c47.firebaseapp.com",
+authDomain:
+"iluminanti-42c47.firebaseapp.com",
 
-  projectId:
-  "iluminanti-42c47",
+projectId:
+"iluminanti-42c47",
 
-  storageBucket:
-  "iluminanti-42c47.firebasestorage.app",
+storageBucket:
+"iluminanti-42c47.firebasestorage.app",
 
-  messagingSenderId:
-  "487766650464",
+messagingSenderId:
+"487766650464",
 
-  appId:
-  "1:487766650464:web:af9aaf5bcb5bb17e679d05"
+appId:
+"1:487766650464:web:af9aaf5bcb5bb17e679d05"
+
 };
 
 
 const app =
 initializeApp(firebaseConfig);
 
+
 const auth =
 getAuth(app);
 
+
 const db =
 getFirestore(app);
+
 
 const message =
 document.getElementById("message");
 
 
 /* =========================
-   ACCOUNT UUMUU
+ACCOUNT UUMUU
 ========================= */
 
+
 document.getElementById("signup").onclick =
+
 async function(){
 
-  const name =
-  document.getElementById("name")
-  .value.trim();
 
-  const phone =
-  document.getElementById("phone")
-  .value.trim();
-
-  const email =
-  document.getElementById("email")
-  .value.trim();
-
-  const password =
-  document.getElementById("password")
-  .value;
-
-  const documentType =
-  document.getElementById("documentType")
-  .value;
+const name =
+document.getElementById("name")
+.value.trim();
 
 
-  if(!name){
-
-    message.textContent =
-    "⚠️ Mee maqaa kee galchi.";
-
-    return;
-  }
+const phone =
+document.getElementById("phone")
+.value.trim();
 
 
-  if(!/^09[0-9]{8}$/.test(phone)){
-
-    message.textContent =
-    "⚠️ Lakkoofsa bilbilaa sirrii galchi.";
-
-    return;
-  }
+const email =
+document.getElementById("email")
+.value.trim();
 
 
-  if(!email){
-
-    message.textContent =
-    "⚠️ Mee email kee galchi.";
-
-    return;
-  }
+const password =
+document.getElementById("password")
+.value;
 
 
-  if(password.length < 6){
-
-    message.textContent =
-    "⚠️ Password yoo xiqqaate qubee 6 qabaachuu qaba.";
-
-    return;
-  }
+const documentType =
+document.getElementById("documentType")
+.value;
 
 
-  if(!documentType){
-
-    message.textContent =
-    "⚠️ Mee Digital ID, Passport ykn Driving Licence filadhu.";
-
-    return;
-  }
+const documentFile =
+document.getElementById("documentFile")
+.files[0];
 
 
-  try{
+if(!name){
 
-    const userCredential =
-    await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+message.textContent =
+"⚠️ Mee maqaa kee galchi.";
 
+return;
 
-    const user =
-    userCredential.user;
+}
 
 
-    await setDoc(
-      doc(db, "members", user.uid),
-      {
-        name: name,
-        phone: phone,
-        email: email,
-        documentType: documentType,
-        status: "pending",
-        createdAt: new Date().toISOString()
-      }
-    );
+if(!/^09[0-9]{8}$/.test(phone)){
+
+message.textContent =
+"⚠️ Lakkoofsa bilbilaa sirrii galchi.";
+
+return;
+
+}
 
 
-    /* ERGAA GALMEE MILKAA'INAA */
+if(!email){
 
-    message.textContent =
-    "✅ Miseensa ILUMINANTI ta'uuf galmeen kee milkaa'inaan galmaa'eera. " +
-    "⏳ Deebii mirkaneessaa eegi.";
+message.textContent =
+"⚠️ Mee email kee galchi.";
 
-  }
+return;
+
+}
 
 
-  catch(error){
+if(password.length < 6){
 
-    console.error(error);
+message.textContent =
+"⚠️ Password yoo xiqqaate qubee 6 qabaachuu qaba.";
 
-    if(
-      error.code ===
-      "auth/email-already-in-use"
-    ){
+return;
 
-      message.textContent =
-      "⚠️ Email kun duraan account qaba.";
+}
 
-    }
 
-    else{
+if(!documentType){
 
-      message.textContent =
-      "❌ Galmee irratti rakkoon uumame.";
+message.textContent =
+"⚠️ Mee Document filadhu.";
 
-    }
+return;
 
-  }
+}
+
+
+if(!documentFile){
+
+message.textContent =
+"⚠️ Mee Document kee upload godhi.";
+
+return;
+
+}
+
+
+try{
+
+
+const userCredential =
+
+await createUserWithEmailAndPassword(
+
+auth,
+
+email,
+
+password
+
+);
+
+
+const user =
+userCredential.user;
+
+
+await setDoc(
+
+doc(
+db,
+"members",
+user.uid
+),
+
+{
+
+name:name,
+
+phone:phone,
+
+email:email,
+
+documentType:documentType,
+
+documentFileName:
+documentFile.name,
+
+status:"pending",
+
+createdAt:
+new Date().toISOString()
+
+}
+
+);
+
+
+message.textContent =
+
+"✅ Miseensa ILUMINANTI ta'uuf " +
+"galmeen kee milkaa'inaan galmaa'eera. " +
+"⏳ Deebii mirkaneessaa eegi.";
+
+
+}
+
+
+catch(error){
+
+console.error(error);
+
+
+if(
+error.code ===
+"auth/email-already-in-use"
+){
+
+message.textContent =
+"⚠️ Email kun duraan account qaba.";
+
+}
+
+else{
+
+message.textContent =
+"❌ Account uumuu hin dandeenye.";
+
+}
+
+}
 
 };
 
 
 /* =========================
-   LOGIN
+LOGIN
 ========================= */
 
+
 document.getElementById("login").onclick =
+
 async function(){
 
-  const email =
-  document.getElementById("email")
-  .value.trim();
 
-  const password =
-  document.getElementById("password")
-  .value;
+const email =
+document.getElementById("email")
+.value.trim();
 
 
-  if(!email || !password){
-
-    message.textContent =
-    "⚠️ Email fi password galchi.";
-
-    return;
-  }
+const password =
+document.getElementById("password")
+.value;
 
 
-  try{
+if(!email || !password){
 
-    const userCredential =
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+message.textContent =
+"⚠️ Email fi password galchi.";
 
+return;
 
-    const user =
-    userCredential.user;
+}
 
 
-    const memberRef =
-    doc(
-      db,
-      "members",
-      user.uid
-    );
+try{
 
 
-    const memberSnap =
-    await getDoc(memberRef);
+const userCredential =
+
+await signInWithEmailAndPassword(
+
+auth,
+
+email,
+
+password
+
+);
 
 
-    if(!memberSnap.exists()){
-
-      message.textContent =
-      "⚠️ Odeeffannoon miseensummaa hin argamne.";
-
-      return;
-    }
+const user =
+userCredential.user;
 
 
-    const member =
-    memberSnap.data();
+const memberRef =
+
+doc(
+db,
+"members",
+user.uid
+);
 
 
-    /* PENDING */
+const memberSnap =
 
-    if(member.status === "pending"){
-
-      message.textContent =
-      "⏳ Galmeen kee ammallee mirkanaa'aa jira. " +
-      "Deebii Admin eegi.";
-
-      return;
-    }
+await getDoc(memberRef);
 
 
-    /* REJECTED */
+if(!memberSnap.exists()){
 
-    if(member.status === "rejected"){
+message.textContent =
+"⚠️ Miseensi kun database keessa hin jiru.";
 
-      message.textContent =
-      "❌ Galmeen kee hin mirkanoofne. " +
-      "Support qunnami.";
+return;
 
-      return;
-    }
+}
 
 
-    /* APPROVED */
-
-    if(member.status === "approved"){
-
-      message.textContent =
-      "🎉 Baga gammaddan! Miseensa ILUMINANTI taataniittu.";
-
-      setTimeout(function(){
-
-        window.location.href =
-        "dashboard.html";
-
-      },1000);
-
-      return;
-    }
+const member =
+memberSnap.data();
 
 
-    message.textContent =
-    "⚠️ Status miseensummaa hin beekamne.";
+if(member.status === "pending"){
 
-  }
+message.textContent =
+
+"⏳ Galmeen kee ammallee " +
+"mirkanaa'aa jira. " +
+"Deebii Admin eegi.";
+
+return;
+
+}
 
 
-  catch(error){
+if(member.status === "rejected"){
 
-    console.error(error);
+message.textContent =
 
-    message.textContent =
-    "❌ Email ykn password sirrii miti.";
+"❌ Galmeen kee hin mirkanoofne.";
 
-  }
+return;
+
+}
+
+
+if(member.status === "approved"){
+
+message.textContent =
+
+"🎉 Baga gammaddan! " +
+"Miseensa ILUMINANTI taataniittu.";
+
+setTimeout(function(){
+
+window.location.href =
+"dashboard.html";
+
+},1000);
+
+return;
+
+}
+
+
+message.textContent =
+"⚠️ Status miseensummaa hin beekamne.";
+
+}
+
+
+catch(error){
+
+console.error(error);
+
+message.textContent =
+"❌ Email ykn password sirrii miti.";
+
+}
 
 };
 
