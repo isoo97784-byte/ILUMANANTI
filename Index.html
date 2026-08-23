@@ -1,350 +1,469 @@
 <!DOCTYPE html>
 <html lang="om">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ILUMINATE - Leenjii Online</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<title>ILUMINANTI Dashboard</title>
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f7fb;
-      color: #172033;
-      line-height: 1.6;
-    }
+<style>
+*{
+  box-sizing:border-box;
+}
 
-    header {
-      background: #111827;
-      color: white;
-      padding: 18px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#172033;
+}
 
-    .logo {
-      font-size: 25px;
-      font-weight: bold;
-    }
+header{
+  background:#172a52;
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+}
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 18px;
-    }
+.container{
+  max-width:650px;
+  margin:25px auto;
+  padding:15px;
+}
 
-    .hero {
-      background: linear-gradient(135deg, #182848, #4b6cb7);
-      color: white;
-      padding: 80px 7%;
-      text-align: center;
-    }
+.card{
+  background:white;
+  padding:20px;
+  margin-bottom:18px;
+  border-radius:15px;
+  box-shadow:0 4px 15px #0002;
+}
 
-    .hero h1 {
-      font-size: 45px;
-      margin-bottom: 15px;
-    }
+.course{
+  background:#f1f5ff;
+  padding:15px;
+  margin:12px 0;
+  border-radius:10px;
+}
 
-    .hero p {
-      max-width: 650px;
-      margin: auto;
-      font-size: 18px;
-    }
+button{
+  width:100%;
+  padding:13px;
+  margin-top:10px;
+  border:0;
+  border-radius:8px;
+  background:#172a52;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
 
-    .btn {
-      display: inline-block;
-      margin-top: 25px;
-      padding: 13px 25px;
-      background: white;
-      color: #182848;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-    }
+input{
+  width:100%;
+  padding:13px;
+  margin:8px 0 15px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:15px;
+}
 
-    section {
-      padding: 55px 7%;
-    }
+.payment-method{
+  border:1px solid #ddd;
+  padding:15px;
+  margin:12px 0;
+  border-radius:12px;
+  background:#fafafa;
+}
 
-    h2 {
-      text-align: center;
-      margin-bottom: 30px;
-      font-size: 30px;
-    }
+.number{
+  background:#eef3ff;
+  padding:14px;
+  border-radius:8px;
+  font-size:20px;
+  font-weight:bold;
+  word-break:break-all;
+  text-align:center;
+}
 
-    .courses {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
+.copy{
+  background:#1976d2;
+}
 
-    .course {
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px #00000012;
-    }
+.confirm{
+  background:#168a45;
+}
 
-    .course h3 {
-      margin-bottom: 10px;
-    }
+.whatsapp{
+  background:#168a45;
+}
 
-    .course button {
-      width: 100%;
-      margin-top: 15px;
-      padding: 12px;
-      background: #182848;
-      color: white;
-      border: none;
-      border-radius: 7px;
-    }
+.telegram{
+  background:#229ed9;
+}
 
-    .form {
-      max-width: 500px;
-      margin: auto;
-      background: white;
-      padding: 25px;
-      border-radius: 15px;
-      box-shadow: 0 5px 20px #00000012;
-    }
+.call{
+  background:#172a52;
+}
 
-    input {
-      width: 100%;
-      padding: 13px;
-      margin: 8px 0;
-      border: 1px solid #ddd;
-      border-radius: 7px;
-    }
+.message{
+  margin-top:15px;
+  padding:12px;
+  border-radius:8px;
+  font-weight:bold;
+  text-align:center;
+}
 
-    .submit {
-      width: 100%;
-      padding: 13px;
-      margin-top: 10px;
-      background: #182848;
-      color: white;
-      border: none;
-      border-radius: 7px;
-      font-weight: bold;
-    }
+.logout{
+  background:#b3261e;
+}
 
-    footer {
-      background: #111827;
-      color: white;
-      text-align: center;
-      padding: 25px;
-    }
-
-    @media (max-width: 700px) {
-      nav {
-        display: none;
-      }
-
-      .hero h1 {
-        font-size: 36px;
-      }
-    }
-  </style>
+.support-text{
+  text-align:center;
+  line-height:1.6;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo">ILUMINATE</div>
-
-  <nav>
-    <a href="#home">Mana</a>
-    <a href="#courses">Koorsii</a>
-    <a href="#register">Galmaa'i</a>
-    <a href="#login">Seeni</a>
-  </nav>
+  <h1>ILUMINANTI</h1>
+  <p>Dashboard Barataa</p>
 </header>
 
-<section class="hero" id="home">
-  <h1>ILUMINATE</h1>
+<div class="container">
 
-  <p>
-    Platformii leenjii online Afaan Oromootiin
-    dandeettii kee guddisuuf si gargaaru.
-  </p>
+  <!-- WELCOME -->
+  <div class="card">
+    <h2>🎓 Baga Nagaan Dhuftan!</h2>
+    <p>
+      Koorsii fi kaffaltii kee as irraa bulchi.
+    </p>
+  </div>
 
-  <a href="#courses" class="btn">Koorsii Ilaali</a>
-</section>
 
-<section id="courses">
-  <h2>📚 Koorsiiwwan Keenya</h2>
+  <!-- COURSES -->
+  <div class="card">
 
-  <div class="courses">
+    <h2>📚 Koorsiiwwan</h2>
 
     <div class="course">
       <h3>💻 Computer Basics</h3>
-      <p>
-        Bu'uura computer fi technology baradhu.
-      </p>
-      <button onclick="startCourse('Computer Basics')">
+      <p>Bu'uura computer baradhu.</p>
+      <button>
         Koorsii Jalqabi
       </button>
     </div>
 
     <div class="course">
       <h3>🌐 Digital Skills</h3>
-      <p>
-        Dandeettii dijitaalaa fi internetii baradhu.
-      </p>
-      <button onclick="startCourse('Digital Skills')">
+      <p>Dandeettii dijitaalaa baradhu.</p>
+      <button>
         Koorsii Jalqabi
       </button>
     </div>
 
     <div class="course">
-      <h3>🇬🇧 English</h3>
-      <p>
-        Afaan Ingilizii tartiibaan baradhu.
-      </p>
-      <button onclick="startCourse('English')">
-        Koorsii Jalqabi
-      </button>
-    </div>
-
-    <div class="course">
-      <h3>💼 Hojii Online</h3>
-      <p>
-        Akkaataa hojii online barbaaduu fi dandeettii
-        hojii dijitaalaa baradhu.
-      </p>
-      <button onclick="startCourse('Hojii Online')">
+      <h3>🇬🇧 Afaan Ingilizii</h3>
+      <p>Afaan Ingilizii baradhu.</p>
+      <button>
         Koorsii Jalqabi
       </button>
     </div>
 
   </div>
-</section>
 
-<section id="register">
-  <h2>📝 Galmaa'i</h2>
 
-  <div class="form">
+  <!-- PAYMENT -->
+  <div class="card">
 
-    <input
-      type="text"
-      id="name"
-      placeholder="Maqaa kee guutuu"
-    >
+    <h2>💰 Kaffaltii</h2>
 
-    <input
-      type="tel"
-      id="phone"
-      placeholder="Lakkoofsa bilbilaa"
-    >
-
-    <input
-      type="email"
-      id="email"
-      placeholder="Email"
-    >
-
-    <input
-      type="password"
-      id="password"
-      placeholder="Password"
-    >
-
-    <button class="submit" onclick="registerUser()">
-      Account Uumi
-    </button>
-
-  </div>
-</section>
-
-<section id="login">
-  <h2>🔐 Seeni</h2>
-
-  <div class="form">
-
-    <input
-      type="email"
-      id="loginEmail"
-      placeholder="Email"
-    >
-
-    <input
-      type="password"
-      id="loginPassword"
-      placeholder="Password"
-    >
-
-    <button class="submit" onclick="loginUser()">
-      Seeni
-    </button>
-
-  </div>
-</section>
-
-<section>
-  <h2>🏆 Certificate</h2>
-
-  <div class="form">
-    <p style="text-align:center;">
-      Koorsii xumurte booda certificate argachuuf
-      carraan ni jira.
+    <p>
+      Amount kaffaltu galchi.
     </p>
-  </div>
-</section>
 
-<footer>
-  <p>© 2026 ILUMINATE</p>
-  <p>Leenjii Online Afaan Oromoo</p>
-</footer>
+    <label>Amount (Birr)</label>
+
+    <input
+      id="amount"
+      type="number"
+      min="1"
+      placeholder="Fakkeenya: 100"
+    >
+
+
+    <!-- ACCOUNT -->
+    <div class="payment-method">
+
+      <h3>🏦 Account Number</h3>
+
+      <p>Herrega kaffaltii:</p>
+
+      <div
+        class="number"
+        id="accountNumber">
+        1000237524547
+      </div>
+
+      <button
+        class="copy"
+        onclick="copyNumber('accountNumber')">
+        📋 Account Number Copy Godhi
+      </button>
+
+    </div>
+
+
+    <!-- TELEBIRR -->
+    <div class="payment-method">
+
+      <h3>📱 Telebirr</h3>
+
+      <p>Lakkoofsa Telebirr:</p>
+
+      <div
+        class="number"
+        id="telebirrNumber">
+        0917118488
+      </div>
+
+      <button
+        class="copy"
+        onclick="copyNumber('telebirrNumber')">
+        📋 Telebirr Number Copy Godhi
+      </button>
+
+    </div>
+
+
+    <!-- CBE BIRR -->
+    <div class="payment-method">
+
+      <h3>📱 CBE Birr</h3>
+
+      <p>Lakkoofsa CBE Birr:</p>
+
+      <div
+        class="number"
+        id="cbeNumber">
+        0917118488
+      </div>
+
+      <button
+        class="copy"
+        onclick="copyNumber('cbeNumber')">
+        📋 CBE Birr Number Copy Godhi
+      </button>
+
+    </div>
+
+
+    <!-- RECEIPT -->
+    <div class="payment-method">
+
+      <h3>🧾 Ragaa Kaffaltii</h3>
+
+      <label>
+        Transaction ID
+      </label>
+
+      <input
+        id="transactionId"
+        type="text"
+        placeholder="Transaction ID galchi"
+      >
+
+      <label>
+        Receipt / Screenshot
+      </label>
+
+      <input
+        id="receipt"
+        type="file"
+        accept="image/*"
+      >
+
+      <button
+        class="confirm"
+        onclick="confirmPayment()">
+        ✅ Confirm Payment
+      </button>
+
+      <div
+        id="paymentMessage"
+        class="message">
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- SUPPORT -->
+  <div class="card">
+
+    <h2>📞 Support</h2>
+
+    <p class="support-text">
+      Gaaffii ykn rakkoo yoo qabaatte
+      nu qunnami.
+      <br>
+      📱 <strong>0917118488</strong>
+    </p>
+
+
+    <!-- PHONE -->
+    <button
+      class="call"
+      onclick="window.location.href='tel:0917118488'">
+      📞 Nu Bilbili
+    </button>
+
+
+    <!-- WHATSAPP -->
+    <button
+      class="whatsapp"
+      onclick="window.open('https://wa.me/251917118488','_blank')">
+      💬 WhatsApp
+    </button>
+
+
+    <!-- TELEGRAM -->
+    <button
+      class="telegram"
+      onclick="openTelegram()">
+      ✈️ Telegram
+    </button>
+
+  </div>
+
+
+  <!-- LOGOUT -->
+  <button
+    class="logout"
+    onclick="logout()">
+    🚪 Ba'i
+  </button>
+
+</div>
+
 
 <script>
 
-function startCourse(course) {
-  alert(
-    "Koorsii " + course +
-    " filatteetta. Fuula leenjii itti aanu irratti banama."
-  );
+function copyNumber(id){
+
+  const number =
+    document.getElementById(id)
+    .innerText.trim();
+
+  if(
+    navigator.clipboard &&
+    window.isSecureContext
+  ){
+
+    navigator.clipboard
+      .writeText(number)
+      .then(function(){
+
+        alert(
+          "✅ Lakkoofsi copy ta'eera: "
+          + number
+        );
+
+      })
+      .catch(function(){
+
+        alert(
+          "Lakkoofsa kana copy godhi: "
+          + number
+        );
+
+      });
+
+  }else{
+
+    alert(
+      "Lakkoofsa kana copy godhi: "
+      + number
+    );
+
+  }
+
 }
 
-function registerUser() {
 
-  let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
-  let email = document.getElementById("email").value;
+function confirmPayment(){
 
-  if (name === "" || phone === "" || email === "") {
-    alert("Mee odeeffannoo barbaachisaa guuti.");
+  const amount =
+    document.getElementById("amount")
+    .value;
+
+  const transactionId =
+    document.getElementById("transactionId")
+    .value.trim();
+
+  const receipt =
+    document.getElementById("receipt")
+    .files.length;
+
+  const message =
+    document.getElementById(
+      "paymentMessage"
+    );
+
+
+  if(!amount){
+
+    message.innerText =
+      "⚠️ Mee Amount galchi.";
+
     return;
   }
 
-  alert(
-    "Galatoomi " + name +
-    "! Galmeen kee fudhatameera."
-  );
-}
 
-async function loginUser() {
+  if(!transactionId){
 
-  let email = document.getElementById("loginEmail").value;
-  let password = document.getElementById("loginPassword").value;
+    message.innerText =
+      "⚠️ Mee Transaction ID galchi.";
 
-  if (email === "" || password === "") {
-    alert("Email fi password kee guuti.");
     return;
   }
 
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
 
-    window.location.href = "./dashboard.html";
+  if(!receipt){
 
-  } catch (error) {
-    alert("Login hin milkoofne: " + error.message);
+    message.innerText =
+      "⚠️ Mee receipt/screenshot galchi.";
+
+    return;
   }
+
+
+  message.innerText =
+    "✅ Ragaan kaffaltii kee fudhatameera.";
+
 }
 
-  let email = 
+
+function openTelegram(){
+
+  alert(
+    "Telegram username kee yoo qabaatte, " +
+    "username sana asitti galchi."
+  );
+
+}
+
+
+function logout(){
+
+  window.location.href =
+    "index.html";
+
+}
+
+</script>
+
+</body>
+</html>
