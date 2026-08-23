@@ -157,71 +157,45 @@ function logout() {
 </style>
 
 <script>
-<section class="payment-section">
+<section style="padding:20px; text-align:center;">
+
   <h2>💰 Payment Method</h2>
-  <p>Mala kaffaltii filadhu</p>
 
-  <div class="payment-card">
+  <div style="
+    background:white;
+    padding:25px;
+    margin:20px auto;
+    max-width:400px;
+    border-radius:15px;
+    box-shadow:0 3px 12px rgba(0,0,0,0.15);
+  ">
+
     <h3>📱 Telebirr</h3>
-    <p>Lakkoofsa kaffaltii:</p>
-    <h3>0917118488</h3>
 
-    <button onclick="selectPayment('Telebirr')">
+    <p>Lakkoofsa kaffaltii:</p>
+
+    <div style="
+      font-size:28px;
+      font-weight:bold;
+      padding:15px;
+      margin:15px 0;
+    ">
+      0917118488
+    </div>
+
+    <button onclick="alert('Telebirr filatameera')"
+      style="
+        width:100%;
+        padding:14px;
+        border:0;
+        border-radius:8px;
+        font-size:16px;
+        cursor:pointer;
+      ">
       Telebirr Filadhu
     </button>
+
   </div>
 
-  <div class="payment-card">
-    <h3>🏦 CBE Birr</h3>
-    <p>Lakkoofsa kaffaltii:</p>
-    <h3>09XXXXXXXX</h3>
-
-    <button onclick="selectPayment('CBE Birr')">
-      CBE Birr Filadhu
-    </button>
-  </div>
-
-  <div id="paymentMessage"></div>
 </section>
-
-<style>
-.payment-section {
-  max-width: 500px;
-  margin: 30px auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-}
-
-.payment-card {
-  background: white;
-  padding: 20px;
-  margin: 15px 0;
-  border-radius: 12px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.12);
-}
-
-.payment-card button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  background: #1976d2;
-  color: white;
-}
-
-#paymentMessage {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 8px;
-  background: #f1f1f1;
-}
-</style>
-
-<script>
-function selectPayment(method) {
-  document.getElementById("paymentMessage").innerHTML =
-    "Ati <strong>" + method + "</strong> filatteetta.";
-}
-</script>
+  
