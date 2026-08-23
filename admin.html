@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="om">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ILUMINANTI - Admin</title>
+<title>ILUMINANTI - Admin Dashboard</title>
 
 <style>
-
 *{
   box-sizing:border-box;
 }
@@ -23,19 +21,19 @@ body{
 header{
   background:#172a52;
   color:white;
-  padding:22px 15px;
   text-align:center;
+  padding:25px 15px;
 }
 
 .container{
-  max-width:900px;
+  max-width:700px;
   margin:25px auto;
   padding:15px;
 }
 
 .card{
   background:white;
-  padding:20px;
+  padding:22px;
   margin-bottom:20px;
   border-radius:15px;
   box-shadow:0 4px 15px #0002;
@@ -51,18 +49,17 @@ input{
 }
 
 button{
-  padding:12px 15px;
+  width:100%;
+  padding:13px;
+  margin-top:8px;
   border:0;
   border-radius:8px;
   color:white;
-  font-size:15px;
-  cursor:pointer;
-  margin:4px;
+  font-size:16px;
 }
 
 .login{
   background:#172a52;
-  width:100%;
 }
 
 .approve{
@@ -75,7 +72,6 @@ button{
 
 .logout{
   background:#555;
-  width:100%;
 }
 
 .member{
@@ -83,18 +79,7 @@ button{
   border-radius:12px;
   padding:18px;
   margin:15px 0;
-}
-
-.pending{
-  border-left:6px solid #f0a500;
-}
-
-.approved{
-  border-left:6px solid #168a45;
-}
-
-.rejected{
-  border-left:6px solid #b3261e;
+  background:#fafafa;
 }
 
 .status{
@@ -104,144 +89,118 @@ button{
 .message{
   text-align:center;
   font-weight:bold;
-  padding:10px;
+  line-height:1.6;
   word-break:break-word;
 }
 
+.hidden{
+  display:none;
+}
 </style>
-
 </head>
 
 <body>
 
 <header>
-
-<h1>ILUMINANTI</h1>
-
-<p>Admin Dashboard</p>
-
+  <h1>ILUMINANTI</h1>
+  <p>Admin Dashboard</p>
 </header>
-
 
 <div class="container">
 
+  <div class="card" id="loginBox">
 
-<div class="card">
+    <h2>🔐 Admin Login</h2>
 
-<h2>🔐 Admin Login</h2>
+    <label>Admin Email</label>
 
-<input
-id="adminEmail"
-type="email"
-placeholder="Admin Email"
->
+    <input
+      id="adminEmail"
+      type="email"
+      placeholder="Admin Email"
+    >
 
-<input
-id="adminPassword"
-type="password"
-placeholder="Admin Password"
->
+    <label>Admin Password</label>
 
-<button
-class="login"
-id="adminLogin">
+    <input
+      id="adminPassword"
+      type="password"
+      placeholder="Admin Password"
+    >
 
-Seeni
+    <button
+      class="login"
+      id="loginButton">
+      🔐 Seeni
+    </button>
 
-</button>
+    <p id="loginMessage" class="message"></p>
 
-<p
-id="loginMessage"
-class="message">
-</p>
-
-</div>
+  </div>
 
 
-<div
-class="card"
-id="membersBox"
-style="display:none;">
+  <div
+    class="card hidden"
+    id="adminPanel">
 
-<h2>👥 Miseensota ILUMINANTI</h2>
+    <h2>👥 Miseensota ILUMINANTI</h2>
 
-<div id="members"></div>
+    <div id="members">
+      ⏳ Miseensota fe'aa jira...
+    </div>
 
-<button
-class="logout"
-id="logout">
+    <button
+      class="logout"
+      id="logoutButton">
+      🚪 Ba'i
+    </button>
 
-🚪 Ba'i
-
-</button>
-
-</div>
+  </div>
 
 </div>
 
 
 <script type="module">
 
-
-import { initializeApp }
-
-from
+import { initializeApp } from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-
 import {
-
-getAuth,
-
-signInWithEmailAndPassword,
-
-signOut
-
-}
-
-from
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut
+} from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-
 import {
-
-getFirestore,
-
-collection,
-
-getDocs,
-
-doc,
-
-updateDoc
-
-}
-
-from
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  updateDoc
+} from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-/* FIREBASE */
-
 const firebaseConfig = {
 
-apiKey:
-"AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
+  apiKey:
+  "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
 
-authDomain:
-"iluminanti-42c47.firebaseapp.com",
+  authDomain:
+  "iluminanti-42c47.firebaseapp.com",
 
-projectId:
-"iluminanti-42c47",
+  projectId:
+  "iluminanti-42c47",
 
-storageBucket:
-"iluminanti-42c47.firebasestorage.app",
+  storageBucket:
+  "iluminanti-42c47.firebasestorage.app",
 
-messagingSenderId:
-"487766650464",
+  messagingSenderId:
+  "487766650464",
 
-appId:
-"1:487766650464:web:af9aaf5bcb5bb17e679d05"
+  appId:
+  "1:487766650464:web:af9aaf5bcb5bb17e679d05"
 
 };
 
@@ -256,330 +215,337 @@ const db =
 getFirestore(app);
 
 
-const loginMessage =
-document.getElementById(
-"loginMessage"
-);
-
-const membersBox =
-document.getElementById(
-"membersBox"
-);
-
-const membersDiv =
-document.getElementById(
-"members"
-);
-
-
-/* =========================
-ADMIN EMAIL
-=========================
-
-EMAIL KEE ASITTI JIJJIRI
-*/
+/* EMAIL ADMIN KEE */
 
 const ADMIN_EMAIL =
-"EMAIL_KEE_ASITTI_GALCHI";
+"isoo97784@gmail.com";
 
 
-/* =========================
-ADMIN LOGIN
-========================= */
+const loginBox =
+document.getElementById("loginBox");
+
+const adminPanel =
+document.getElementById("adminPanel");
+
+const loginMessage =
+document.getElementById("loginMessage");
+
+const members =
+document.getElementById("members");
+
+
+/* ADMIN LOGIN */
 
 document.getElementById(
-"adminLogin"
-).onclick = async function(){
+"loginButton"
+).addEventListener(
+"click",
+async function(){
 
-const email =
-document.getElementById(
-"adminEmail"
-).value.trim();
+  const email =
+  document.getElementById(
+  "adminEmail"
+  ).value.trim();
 
-const password =
-document.getElementById(
-"adminPassword"
-).value;
-
-
-if(!email || !password){
-
-loginMessage.textContent =
-"⚠️ Admin Email fi Password galchi.";
-
-return;
-
-}
+  const password =
+  document.getElementById(
+  "adminPassword"
+  ).value;
 
 
-if(email !== ADMIN_EMAIL){
+  if(!email || !password){
 
-loginMessage.textContent =
-"❌ Email kun admin miti.";
+    loginMessage.textContent =
+    "⚠️ Email fi password galchi.";
 
-return;
+    return;
 
-}
-
-
-try{
-
-await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
+  }
 
 
-loginMessage.textContent =
-"✅ Admin seeneera.";
+  if(email.toLowerCase() !==
+     ADMIN_EMAIL.toLowerCase()){
 
-membersBox.style.display =
-"block";
+    loginMessage.textContent =
+    "❌ Email kun admin miti.";
 
-loadMembers();
+    return;
 
-}
-
-catch(error){
-
-console.error(error);
-
-loginMessage.textContent =
-"❌ " +
-error.code +
-" — " +
-error.message;
-
-}
-
-};
+  }
 
 
-/* =========================
-MEMBERS
-========================= */
+  try{
 
-async function loadMembers(){
-
-membersDiv.innerHTML =
-"⏳ Miseensota fe'aa jira...";
-
-
-try{
-
-const snapshot =
-await getDocs(
-collection(db,"members")
-);
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
 
-if(snapshot.empty){
+    loginBox.classList.add(
+      "hidden"
+    );
 
-membersDiv.innerHTML =
-"<p>📭 Miseensi tokko illee hin jiru.</p>";
+    adminPanel.classList.remove(
+      "hidden"
+    );
 
-return;
+    loadMembers();
 
-}
+  }
 
+  catch(error){
 
-membersDiv.innerHTML = "";
+    console.error(error);
 
+    loginMessage.textContent =
+    "❌ " +
+    error.code +
+    " — " +
+    error.message;
 
-snapshot.forEach(function(
-memberDoc
-){
-
-const member =
-memberDoc.data();
-
-const id =
-memberDoc.id;
-
-
-const div =
-document.createElement(
-"div"
-);
-
-
-div.className =
-"member " +
-(member.status || "pending");
-
-
-div.innerHTML = `
-
-<h3>
-👤 ${member.name || "Maqaan hin jiru"}
-</h3>
-
-<p>
-📱 <strong>Phone:</strong>
-${member.phone || "-"}
-</p>
-
-<p>
-📧 <strong>Email:</strong>
-${member.email || "-"}
-</p>
-
-<p>
-🪪 <strong>Document:</strong>
-${member.documentType || "-"}
-</p>
-
-<p>
-📄 <strong>File:</strong>
-${member.documentFileName || "-"}
-</p>
-
-<p class="status">
-📌 Status:
-${member.status || "pending"}
-</p>
-
-<button
-class="approve"
-onclick="approveMember('${id}')">
-
-✅ Approve
-
-</button>
-
-<button
-class="reject"
-onclick="rejectMember('${id}')">
-
-❌ Reject
-
-</button>
-
-`;
-
-membersDiv.appendChild(div);
+  }
 
 });
 
+
+/* MEMBERS LOAD */
+
+async function loadMembers(){
+
+  members.innerHTML =
+  "⏳ Miseensota fe'aa jira...";
+
+
+  try{
+
+    const snapshot =
+    await getDocs(
+      collection(db,"members")
+    );
+
+
+    if(snapshot.empty){
+
+      members.innerHTML =
+      "<p>📭 Miseensi tokko illee hin jiru.</p>";
+
+      return;
+
+    }
+
+
+    members.innerHTML = "";
+
+
+    snapshot.forEach(function(
+      memberDoc
+    ){
+
+      const data =
+      memberDoc.data();
+
+      const id =
+      memberDoc.id;
+
+
+      const div =
+      document.createElement("div");
+
+      div.className =
+      "member";
+
+
+      div.innerHTML = `
+
+        <h3>
+        👤 ${data.name || "-"}
+        </h3>
+
+        <p>
+        📱 Phone:
+        ${data.phone || "-"}
+        </p>
+
+        <p>
+        📧 Email:
+        ${data.email || "-"}
+        </p>
+
+        <p>
+        🪪 Document:
+        ${data.documentType || "-"}
+        </p>
+
+        <p>
+        📄 File:
+        ${data.documentFileName || "-"}
+        </p>
+
+        <p class="status">
+        📌 Status:
+        ${data.status || "pending"}
+        </p>
+
+        <button
+        class="approve">
+        ✅ Approve
+        </button>
+
+        <button
+        class="reject">
+        ❌ Reject
+        </button>
+      `;
+
+
+      div.querySelector(
+        ".approve"
+      ).addEventListener(
+        "click",
+        function(){
+          approveMember(id);
+        }
+      );
+
+
+      div.querySelector(
+        ".reject"
+      ).addEventListener(
+        "click",
+        function(){
+          rejectMember(id);
+        }
+      );
+
+
+      members.appendChild(div);
+
+    });
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    members.innerHTML =
+    "<p>❌ Rakkoo database: " +
+    error.code +
+    "</p>";
+
+  }
+
 }
 
-catch(error){
 
-console.error(error);
+/* APPROVE */
 
-membersDiv.innerHTML =
-"❌ Miseensota arguu hin dandeenye.<br>" +
-error.code;
+async function approveMember(id){
 
-}
+  try{
 
-}
+    await updateDoc(
 
+      doc(
+        db,
+        "members",
+        id
+      ),
 
-/* =========================
-APPROVE
-========================= */
+      {
+        status:"approved"
+      }
 
-window.approveMember =
-async function(id){
+    );
 
-try{
+    alert(
+      "✅ Miseensi approve ta'eera."
+    );
 
-await updateDoc(
+    loadMembers();
 
-doc(
-db,
-"members",
-id
-),
+  }
 
-{
-status:"approved"
-}
+  catch(error){
 
-);
+    alert(
+      "❌ Approve hin milkoofne: " +
+      error.message
+    );
 
-alert(
-"✅ Miseensi approve ta'eera."
-);
-
-loadMembers();
+  }
 
 }
 
-catch(error){
 
-alert(
-"❌ Approve hin milkoofne: " +
-error.message
-);
+/* REJECT */
 
-}
+async function rejectMember(id){
 
-};
+  try{
 
+    await updateDoc(
 
-/* =========================
-REJECT
-========================= */
+      doc(
+        db,
+        "members",
+        id
+      ),
 
-window.rejectMember =
-async function(id){
+      {
+        status:"rejected"
+      }
 
-try{
+    );
 
-await updateDoc(
+    alert(
+      "❌ Miseensi rejected ta'eera."
+    );
 
-doc(
-db,
-"members",
-id
-),
+    loadMembers();
 
-{
-status:"rejected"
-}
+  }
 
-);
+  catch(error){
 
-alert(
-"❌ Miseensi rejected ta'eera."
-);
+    alert(
+      "❌ Reject hin milkoofne: " +
+      error.message
+    );
 
-loadMembers();
+  }
 
 }
 
-catch(error){
 
-alert(
-"❌ Reject hin milkoofne: " +
-error.message
-);
-
-}
-
-};
-
-
-/* =========================
-LOGOUT
-========================= */
+/* LOGOUT */
 
 document.getElementById(
-"logout"
-).onclick = async function(){
+"logoutButton"
+).addEventListener(
+"click",
+async function(){
 
-await signOut(auth);
+  await signOut(auth);
 
-membersBox.style.display =
-"none";
+  adminPanel.classList.add(
+    "hidden"
+  );
 
-loginMessage.textContent =
-"Admin ba'eera.";
+  loginBox.classList.remove(
+    "hidden"
+  );
 
-};
+  document.getElementById(
+    "adminPassword"
+  ).value = "";
+
+  loginMessage.textContent =
+  "Admin ba'eera.";
+
+});
 
 </script>
 
