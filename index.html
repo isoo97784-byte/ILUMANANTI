@@ -7,7 +7,9 @@
 <title>ILUMINANTI - Leenjii Online</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
@@ -43,7 +45,8 @@ section{
   box-shadow:0 4px 15px #0002;
 }
 
-input,select{
+input,
+select{
   width:100%;
   padding:13px;
   margin:8px 0 15px;
@@ -70,6 +73,10 @@ button{
   cursor:pointer;
 }
 
+button:active{
+  transform:scale(.98);
+}
+
 .document-box{
   background:#f5f7ff;
   padding:15px;
@@ -87,6 +94,7 @@ button{
   margin-top:15px;
   text-align:center;
   font-weight:bold;
+  line-height:1.6;
 }
 </style>
 </head>
@@ -100,25 +108,46 @@ button{
 
 <div class="hero">
   <h2>Baga Nagaan Dhuftan!</h2>
-  <p>Baradhu • Dandeettii kee guddifadhu • Gara fuulduraatti tarkaanfadhi</p>
+  <p>
+    Baradhu • Dandeettii kee guddifadhu •
+    Gara fuulduraatti tarkaanfadhi
+  </p>
 </div>
 
 <section>
+
 <div class="box">
 
 <h2>📝 Galmee Miseensummaa</h2>
 
 <label>Maqaa Guutuu</label>
-<input id="name" type="text" placeholder="Maqaa kee guutuu">
+<input
+  id="name"
+  type="text"
+  placeholder="Maqaa kee guutuu"
+>
 
 <label>Lakkoofsa Bilbilaa</label>
-<input id="phone" type="tel" placeholder="09XXXXXXXX" maxlength="10">
+<input
+  id="phone"
+  type="tel"
+  placeholder="09XXXXXXXX"
+  maxlength="10"
+>
 
 <label>Email</label>
-<input id="email" type="email" placeholder="Email kee">
+<input
+  id="email"
+  type="email"
+  placeholder="Email kee"
+>
 
 <label>Password</label>
-<input id="password" type="password" placeholder="Password kee">
+<input
+  id="password"
+  type="password"
+  placeholder="Password kee"
+>
 
 <div class="document-box">
 
@@ -127,33 +156,44 @@ button{
 <label>Document filadhu</label>
 
 <select id="documentType">
-  <option value="">Document filadhu</option>
-  <option value="Digital ID">Digital ID</option>
-  <option value="Passport">Passport</option>
-  <option value="Driving Licence">Driving Licence</option>
+
+<option value="">
+Document filadhu
+</option>
+
+<option value="Digital ID">
+Digital ID
+</option>
+
+<option value="Passport">
+Passport
+</option>
+
+<option value="Driving Licence">
+Driving Licence
+</option>
+
 </select>
 
-<label>Document Upload</label>
-
-<input
-  id="documentFile"
-  type="file"
-  accept="image/*,.pdf"
->
-
 <p class="notice">
-Document kee mirkaneessaaf qofa fayyada.
+🔒 Odeeffannoon kee mirkaneessaaf qofa fayyada.
+Document nama biraa hin fayyadamin.
 </p>
 
 </div>
 
-<button id="signup">✅ Account Uumi</button>
+<button id="signup">
+  ✅ Miseensa Ta'i
+</button>
 
-<button id="login">🔐 Seeni</button>
+<button id="login">
+  🔐 Seeni
+</button>
 
 <p id="message"></p>
 
 </div>
+
 </section>
 
 
@@ -172,87 +212,116 @@ from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import {
   getFirestore,
   doc,
-  setDoc
+  setDoc,
+  getDoc
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
-  authDomain: "iluminanti-42c47.firebaseapp.com",
-  projectId: "iluminanti-42c47",
-  storageBucket: "iluminanti-42c47.firebasestorage.app",
-  messagingSenderId: "487766650464",
-  appId: "1:487766650464:web:af9aaf5bcb5bb17e679d05"
+
+  apiKey:
+  "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
+
+  authDomain:
+  "iluminanti-42c47.firebaseapp.com",
+
+  projectId:
+  "iluminanti-42c47",
+
+  storageBucket:
+  "iluminanti-42c47.firebasestorage.app",
+
+  messagingSenderId:
+  "487766650464",
+
+  appId:
+  "1:487766650464:web:af9aaf5bcb5bb17e679d05"
 };
 
 
-const app = initializeApp(firebaseConfig);
+const app =
+initializeApp(firebaseConfig);
 
-const auth = getAuth(app);
+const auth =
+getAuth(app);
 
-const db = getFirestore(app);
-
+const db =
+getFirestore(app);
 
 const message =
 document.getElementById("message");
 
 
+/* =========================
+   ACCOUNT UUMUU
+========================= */
+
 document.getElementById("signup").onclick =
 async function(){
 
   const name =
-  document.getElementById("name").value.trim();
+  document.getElementById("name")
+  .value.trim();
 
   const phone =
-  document.getElementById("phone").value.trim();
+  document.getElementById("phone")
+  .value.trim();
 
   const email =
-  document.getElementById("email").value.trim();
+  document.getElementById("email")
+  .value.trim();
 
   const password =
-  document.getElementById("password").value;
+  document.getElementById("password")
+  .value;
 
   const documentType =
-  document.getElementById("documentType").value;
-
-  const documentFile =
-  document.getElementById("documentFile").files[0];
+  document.getElementById("documentType")
+  .value;
 
 
   if(!name){
+
     message.textContent =
     "⚠️ Mee maqaa kee galchi.";
+
     return;
   }
+
 
   if(!/^09[0-9]{8}$/.test(phone)){
+
     message.textContent =
     "⚠️ Lakkoofsa bilbilaa sirrii galchi.";
+
     return;
   }
+
 
   if(!email){
+
     message.textContent =
     "⚠️ Mee email kee galchi.";
+
     return;
   }
+
 
   if(password.length < 6){
+
     message.textContent =
     "⚠️ Password yoo xiqqaate qubee 6 qabaachuu qaba.";
+
     return;
   }
+
 
   if(!documentType){
-    message.textContent =
-    "⚠️ Document filadhu.";
-    return;
-  }
 
-  if(!documentFile){
     message.textContent =
-    "⚠️ Document kee filadhu.";
+    "⚠️ Mee Digital ID, Passport ykn Driving Licence filadhu.";
+
     return;
   }
 
@@ -265,6 +334,7 @@ async function(){
       email,
       password
     );
+
 
     const user =
     userCredential.user;
@@ -283,25 +353,33 @@ async function(){
     );
 
 
+    /* ERGAA GALMEE MILKAA'INAA */
+
     message.textContent =
-    "✅ Galmeen kee fudhatameera! Admin mirkaneessa.";
+    "✅ Miseensa ILUMINANTI ta'uuf galmeen kee milkaa'inaan galmaa'eera. " +
+    "⏳ Deebii mirkaneessaa eegi.";
 
   }
+
 
   catch(error){
 
     console.error(error);
 
-    if(error.code ===
-      "auth/email-already-in-use"){
+    if(
+      error.code ===
+      "auth/email-already-in-use"
+    ){
 
       message.textContent =
       "⚠️ Email kun duraan account qaba.";
 
-    }else{
+    }
+
+    else{
 
       message.textContent =
-      "❌ Rakkoo uumame. Mee irra deebi'i.";
+      "❌ Galmee irratti rakkoon uumame.";
 
     }
 
@@ -310,14 +388,20 @@ async function(){
 };
 
 
+/* =========================
+   LOGIN
+========================= */
+
 document.getElementById("login").onclick =
 async function(){
 
   const email =
-  document.getElementById("email").value.trim();
+  document.getElementById("email")
+  .value.trim();
 
   const password =
-  document.getElementById("password").value;
+  document.getElementById("password")
+  .value;
 
 
   if(!email || !password){
@@ -331,18 +415,94 @@ async function(){
 
   try{
 
+    const userCredential =
     await signInWithEmailAndPassword(
       auth,
       email,
       password
     );
 
-    window.location.href =
-    "dashboard.html";
+
+    const user =
+    userCredential.user;
+
+
+    const memberRef =
+    doc(
+      db,
+      "members",
+      user.uid
+    );
+
+
+    const memberSnap =
+    await getDoc(memberRef);
+
+
+    if(!memberSnap.exists()){
+
+      message.textContent =
+      "⚠️ Odeeffannoon miseensummaa hin argamne.";
+
+      return;
+    }
+
+
+    const member =
+    memberSnap.data();
+
+
+    /* PENDING */
+
+    if(member.status === "pending"){
+
+      message.textContent =
+      "⏳ Galmeen kee ammallee mirkanaa'aa jira. " +
+      "Deebii Admin eegi.";
+
+      return;
+    }
+
+
+    /* REJECTED */
+
+    if(member.status === "rejected"){
+
+      message.textContent =
+      "❌ Galmeen kee hin mirkanoofne. " +
+      "Support qunnami.";
+
+      return;
+    }
+
+
+    /* APPROVED */
+
+    if(member.status === "approved"){
+
+      message.textContent =
+      "🎉 Baga gammaddan! Miseensa ILUMINANTI taataniittu.";
+
+      setTimeout(function(){
+
+        window.location.href =
+        "dashboard.html";
+
+      },1000);
+
+      return;
+    }
+
+
+    message.textContent =
+    "⚠️ Status miseensummaa hin beekamne.";
 
   }
 
+
   catch(error){
+
+    console.error(error);
 
     message.textContent =
     "❌ Email ykn password sirrii miti.";
