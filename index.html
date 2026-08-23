@@ -97,6 +97,7 @@ button:active{
   text-align:center;
   font-weight:bold;
   line-height:1.6;
+  word-break:break-word;
 }
 
 </style>
@@ -252,7 +253,6 @@ Document nama biraa hin fayyadamin.
 
 <p id="message"></p>
 
-
 </div>
 
 </section>
@@ -296,6 +296,8 @@ getDoc
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
+
+/* FIREBASE CONFIG */
 
 const firebaseConfig = {
 
@@ -502,22 +504,13 @@ catch(error){
 console.error(error);
 
 
-if(
-error.code ===
-"auth/email-already-in-use"
-){
+/* ERROR DHUGAA */
 
 message.textContent =
-"⚠️ Email kun duraan account qaba.";
-
-}
-
-else{
-
-message.textContent =
-"❌ Account uumuu hin dandeenye.";
-
-}
+"❌ " +
+error.code +
+" — " +
+error.message;
 
 }
 
@@ -633,12 +626,14 @@ message.textContent =
 "🎉 Baga gammaddan! " +
 "Miseensa ILUMINANTI taataniittu.";
 
+
 setTimeout(function(){
 
 window.location.href =
 "dashboard.html";
 
 },1000);
+
 
 return;
 
@@ -655,8 +650,14 @@ catch(error){
 
 console.error(error);
 
+
+/* LOGIN ERROR */
+
 message.textContent =
-"❌ Email ykn password sirrii miti.";
+"❌ " +
+error.code +
+" — " +
+error.message;
 
 }
 
