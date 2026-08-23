@@ -157,8 +157,71 @@ function logout() {
 </style>
 
 <script>
+<section class="payment-section">
+  <h2>💰 Payment Method</h2>
+  <p>Mala kaffaltii filadhu</p>
+
+  <div class="payment-card">
+    <h3>📱 Telebirr</h3>
+    <p>Lakkoofsa kaffaltii:</p>
+    <h3>0917118488</h3>
+
+    <button onclick="selectPayment('Telebirr')">
+      Telebirr Filadhu
+    </button>
+  </div>
+
+  <div class="payment-card">
+    <h3>🏦 CBE Birr</h3>
+    <p>Lakkoofsa kaffaltii:</p>
+    <h3>09XXXXXXXX</h3>
+
+    <button onclick="selectPayment('CBE Birr')">
+      CBE Birr Filadhu
+    </button>
+  </div>
+
+  <div id="paymentMessage"></div>
+</section>
+
+<style>
+.payment-section {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.payment-card {
+  background: white;
+  padding: 20px;
+  margin: 15px 0;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+}
+
+.payment-card button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  background: #1976d2;
+  color: white;
+}
+
+#paymentMessage {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background: #f1f1f1;
+}
+</style>
+
+<script>
 function selectPayment(method) {
   document.getElementById("paymentMessage").innerHTML =
-    "Ati <strong>" 0917118488"</strong> filatteetta. Maallaqa kaffaltu fi odeeffannoo barbaachisu itti aanu keessatti galchi.";
+    "Ati <strong>" + method + "</strong> filatteetta.";
 }
 </script>
