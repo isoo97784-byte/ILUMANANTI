@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ILUMINANTI - Posts</title>
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#172033;
+}
+
+header{
+  background:#172a52;
+  color:white;
+  text-align:center;
+  padding:25px 15px;
+}
+
+.container{
+  max-width:650px;
+  margin:25px auto;
+  padding:15px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  margin-bottom:18px;
+  border-radius:15px;
+  box-shadow:0 4px 15px #0002;
+}
+
+.post{
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:18px;
+  margin:15px 0;
+}
+
+.post h2{
+  margin-top:0;
+}
+
+.date{
+  color:#777;
+  font-size:13px;
+}
+
+.post-image{
+  width:100%;
+  max-height:350px;
+  object-fit:cover;
+  border-radius:10px;
+  margin:10px 0;
+}
+
+button{
+  width:100%;
+  padding:13px;
+  margin-top:10px;
+  border:0;
+  border-radius:8px;
+  background:#172a52;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.signup{
+  background:#168a45;
+}
+
+.login{
+  background:#3157a4;
+}
+
+.message{
+  text-align:center;
+  font-weight:bold;
+  margin-top:15px;
+}
+
+.empty{
+  text-align:center;
+  color:#666;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>ILUMINANTI</h1>
+
+<p>
+📢 Beeksisa fi Postoota
+</p>
+
+</header>
+
+
+<div class="container">
+
+<!-- PUBLIC POSTS -->
+
+<div class="card">
+
+<h2>📢 Postoota Haaraa</h2>
+
+<div id="posts">
+
+<p class="empty">
+⏳ Postoota fe'aa jira...
+</p>
+
+</div>
+
+</div>
+
+
+<!-- SIGN UP -->
+
+<div class="card">
+
+<h2>👥 Miseensa Ta'i</h2>
+
+<p>
+Postoota keenya dubbistee yoo
+ILUMINANTI waliin barachuu barbaadde,
+amma miseensa ta'uu dandeessa.
+</p>
+
+<button
+class="signup"
+onclick="goSignup()">
+
+✅ Miseensa Ta'i
+
+</button>
+
+<button
+class="login"
+onclick="goLogin()">
+
+🔐 Seeni
+
+</button>
+
+</div>
+
+</div>
+
+
+<script type="module">
+
+import { initializeApp } from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs
+} from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+  "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
+
+  authDomain:
+  "iluminanti-42c47.firebaseapp.com",
+
+  projectId:
+  "iluminanti-42c47",
+
+  storageBucket:
+  "iluminanti-42c47.firebasestorage.app",
+
+  messagingSenderId:
+  "487766650464",
+
+  appId:
+  "1:487766650464:web:af9aaf5bcb5bb17e679d05"
+
+};
+
+
+const app =
+initializeApp(firebaseConfig);
+
+const db =
+getFirestore(app);
+
+const posts =
+document.getElementById("posts");
+
+
+async function loadPosts(){
+
+  try{
+
+    const snapshot =
+    await getDocs(
+      collection(db,"posts")
+    );
+
+
+    if(snapshot.empty){
+
+      posts.innerHTML = `
+        <p class="empty">
+          📭 Ammaaf post hin jiru.
+        </p>
+      `;
+
+      return;
+    }
+
+
+    posts.innerHTML = "";
+
+
+    snapshot.forEach(function(postDoc){
+
+      const data =
+      postDoc.data();
+
+
+      const article =
+      document.createElement("article");
+
+      article.className = "post";
+
+
+      article.innerHTML = `
+
+        <h2>
+          ${data.title || "Post"}
+        </h2>
+
+        ${
+          data.image
+          ?
+          `<img
+             class="post-image"
+             src="${data.image}"
+             alt="Post image">
+          `
+          :
+          ""
+        }
+
+        <p>
+          ${data.content || ""}
+        </p>
+
+        <p class="date">
+          📅 ${data.date || ""}
+        </p>
+
+      `;
+
+
+      posts.appendChild(article);
+
+    });
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    posts.innerHTML = `
+      <p class="empty">
+        ❌ Postoota fe'uu hin dandeenye.
+      </p>
+    `;
+
+  }
+
+}
+
+
+function goSignup(){
+
+  window.location.href =
+  "index.html";
+
+}
+
+
+function goLogin(){
+
+  window.location.href =
+  "index.html";
+
+}
+
+
+loadPosts();
+
+</script>
+
+</body>
+</html>
