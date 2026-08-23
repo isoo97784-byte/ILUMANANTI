@@ -35,7 +35,7 @@ header{
 }
 
 section{
-  max-width:520px;
+  max-width:650px;
   margin:25px auto;
   padding:15px;
 }
@@ -45,6 +45,7 @@ section{
   padding:25px;
   border-radius:15px;
   box-shadow:0 4px 15px #0002;
+  margin-bottom:20px;
 }
 
 input,
@@ -100,11 +101,70 @@ button:active{
   word-break:break-word;
 }
 
+
+/* =========================
+   PUBLIC POSTS
+========================= */
+
+.posts-box{
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 4px 15px #0002;
+  margin-bottom:20px;
+}
+
+.post{
+  background:#f8f9fc;
+  border:1px solid #e1e4ea;
+  border-radius:12px;
+  padding:18px;
+  margin:15px 0;
+}
+
+.post h3{
+  margin-top:0;
+  color:#172a52;
+  font-size:21px;
+}
+
+.post-content{
+  line-height:1.7;
+  white-space:pre-wrap;
+  word-break:break-word;
+}
+
+.post-image{
+  width:100%;
+  max-height:400px;
+  object-fit:cover;
+  border-radius:10px;
+  margin:10px 0;
+}
+
+.post-date{
+  color:#777;
+  font-size:13px;
+  margin-top:15px;
+}
+
+.no-posts{
+  text-align:center;
+  color:#666;
+  padding:15px;
+}
+
+.loading{
+  text-align:center;
+  color:#666;
+}
+
 </style>
 
 </head>
 
 <body>
+
 
 <header>
 
@@ -132,6 +192,37 @@ Gara fuulduraatti tarkaanfadhi
 
 
 <section>
+
+
+<!-- =========================
+PUBLIC POSTS
+========================= -->
+
+<div class="posts-box">
+
+<h2>
+📢 Postoota Haaraa
+</h2>
+
+<p>
+Beeksisa, barreeffama fi odeeffannoo
+ILUMINANTI irraa.
+</p>
+
+<div id="publicPosts">
+
+<p class="loading">
+⏳ Postoota fe'aa jira...
+</p>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+REGISTRATION
+========================= -->
 
 <div class="box">
 
@@ -289,7 +380,11 @@ doc,
 
 setDoc,
 
-getDoc
+getDoc,
+
+collection,
+
+getDocs
 
 }
 
@@ -297,7 +392,9 @@ from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-/* FIREBASE CONFIG */
+/* =========================
+FIREBASE CONFIG
+========================= */
 
 const firebaseConfig = {
 
@@ -339,9 +436,157 @@ document.getElementById("message");
 
 
 /* =========================
-ACCOUNT UUMUU
+PUBLIC POSTS LOAD
 ========================= */
 
+async function loadPublicPosts(){
+
+const postsBox =
+document.getElementById(
+"publicPosts"
+);
+
+
+try{
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"posts"
+)
+);
+
+
+if(snapshot.empty){
+
+postsBox.innerHTML = `
+<p class="no-posts">
+📭 Ammaaf post hin jiru.
+</p>
+`;
+
+return;
+
+}
+
+
+postsBox.innerHTML = "";
+
+
+snapshot.forEach(
+function(postDoc){
+
+const data =
+postDoc.data();
+
+
+const post =
+document.createElement("article");
+
+post.className =
+"post";
+
+
+/*
+Mata-duree
+*/
+
+const title =
+document.createElement("h3");
+
+title.textContent =
+data.title || "Post";
+
+
+post.appendChild(title);
+
+
+/*
+Suuraa
+*/
+
+if(data.image){
+
+const image =
+document.createElement("img");
+
+image.className =
+"post-image";
+
+image.src =
+data.image;
+
+image.alt =
+data.title || "Post image";
+
+post.appendChild(image);
+
+}
+
+
+/*
+Barreeffama
+*/
+
+const content =
+document.createElement("div");
+
+content.className =
+"post-content";
+
+content.textContent =
+data.content || "";
+
+post.appendChild(content);
+
+
+/*
+Guyyaa
+*/
+
+const date =
+document.createElement("div");
+
+date.className =
+"post-date";
+
+date.textContent =
+"📅 " +
+(data.date || "");
+
+post.appendChild(date);
+
+
+postsBox.appendChild(post);
+
+});
+
+}
+
+catch(error){
+
+console.error(error);
+
+postsBox.innerHTML = `
+<p class="no-posts">
+❌ Postoota fe'uu hin dandeenye.
+</p>
+`;
+
+}
+
+}
+
+
+/* Postoota jalqaba fe'i */
+
+loadPublicPosts();
+
+
+/* =========================
+ACCOUNT UUMUU
+========================= */
 
 document.getElementById("signup").onclick =
 
@@ -504,8 +749,6 @@ catch(error){
 console.error(error);
 
 
-/* ERROR DHUGAA */
-
 message.textContent =
 "❌ " +
 error.code +
@@ -520,7 +763,6 @@ error.message;
 /* =========================
 LOGIN
 ========================= */
-
 
 document.getElementById("login").onclick =
 
@@ -650,8 +892,6 @@ catch(error){
 
 console.error(error);
 
-
-/* LOGIN ERROR */
 
 message.textContent =
 "❌ " +
