@@ -327,7 +327,7 @@ function registerUser() {
   );
 }
 
-function loginUser() {
+async function loginUser() {
 
   let email = document.getElementById("loginEmail").value;
   let password = document.getElementById("loginPassword").value;
@@ -337,10 +337,14 @@ function loginUser() {
     return;
   }
 
-  window.location.href = "dashboard.html";
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+
+    window.location.href = "./dashboard.html";
+
+  } catch (error) {
+    alert("Login hin milkoofne: " + error.message);
+  }
 }
 
-</script>
-
-</body>
-  </html>
+  let email = 
