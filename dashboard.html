@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ILUMINANTI Dashboard</title>
+
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -28,7 +29,8 @@
       box-shadow: 0 4px 15px #0002;
     }
 
-    .course {
+    .course,
+    .payment-card {
       padding: 18px;
       margin: 12px 0;
       background: #f1f5ff;
@@ -43,6 +45,40 @@
       border: 0;
       border-radius: 8px;
       margin-top: 10px;
+      cursor: pointer;
+    }
+
+    .payment-section {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid #eee;
+    }
+
+    input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 13px;
+      margin: 8px 0 15px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    #paymentBox {
+      display: none;
+      margin-top: 20px;
+      padding: 20px;
+      background: #f1f5ff;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    #paymentNumber {
+      font-size: 26px;
+    }
+
+    #paymentMessage {
+      margin-top: 15px;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -57,7 +93,6 @@
 <div class="box">
 
   <h2>🎓 Baga Nagaan Dhuftan!</h2>
-
   <p>As keessatti koorsiiwwan kee argatta.</p>
 
   <div class="course">
@@ -78,188 +113,117 @@
     <button>Koorsii Jalqabi</button>
   </div>
 
+
+  <!-- PAYMENT -->
+
+  <section class="payment-section">
+
+    <h2>💰 Kaffaltii</h2>
+    <p>Amount fi mala kaffaltii filadhu.</p>
+
+    <label>Amount (Birr)</label>
+    <input
+      id="amount"
+      type="number"
+      min="1"
+      placeholder="Fakkeenya: 100"
+    >
+
+    <h3>Payment Method</h3>
+
+    <button onclick="showPayment('Telebirr')">
+      📱 Telebirr Filadhu
+    </button>
+
+    <button onclick="showPayment('CBE Birr')">
+      🏦 CBE Birr Filadhu
+    </button>
+
+    <button onclick="showPayment('Account')">
+      🏦 Account Filadhu
+    </button>
+
+
+    <div id="paymentBox">
+
+      <h3 id="selectedMethod"></h3>
+
+      <p>Lakkoofsa kaffaltii:</p>
+
+      <h2 id="paymentNumber">0917118488</h2>
+
+      <label>Transaction ID</label>
+
+      <input
+        id="transactionId"
+        type="text"
+        placeholder="Transaction ID galchi"
+      >
+
+      <button onclick="confirmPayment()">
+        ✅ Confirm Payment
+      </button>
+
+      <p id="paymentMessage"></p>
+
+    </div>
+
+  </section>
+
+
   <button onclick="logout()">Ba'i</button>
 
 </div>
 
+
 <script>
-function logout() {
-  window.location.href = "index.html";
+
+function showPayment(method) {
+
+  document.getElementById("paymentBox").style.display = "block";
+
+  document.getElementById("selectedMethod").innerText =
+    "Filannoo: " + method;
+
+  document.getElementById("paymentNumber").innerText =
+    "0917118488";
 }
+
+
+function confirmPayment() {
+
+  const amount =
+    document.getElementById("amount").value;
+
+  const transactionId =
+    document.getElementById("transactionId").value;
+
+  const message =
+    document.getElementById("paymentMessage");
+
+
+  if (!amount || !transactionId) {
+
+    message.innerText =
+      "⚠️ Amount fi Transaction ID guuti.";
+
+    return;
+  }
+
+
+  message.innerText =
+    "✅ Payment request kee galmaa'eera.";
+
+}
+
+
+function logout() {
+
+  window.location.href = "index.html";
+
+}
+
 </script>
 
 </body>
 </html>
-<section class="payment-section">
-  <h2>💰 Kaffaltii</h2>
-  <p>Mala kaffaltii filadhu</p>
-
-  <div class="payment-card">
-    <h3>📱 Telebirr</h3>
-    <p>Lakkoofsa: <strong>09XXXXXXXX</strong></p>
-    <button onclick="selectPayment('Telebirr')">
-      Telebirr Filadhu
-    </button>
-  </div>
-
-  <div class="payment-card">
-    <h3>🏦 CBE Birr</h3>
-    <p>Lakkoofsa: <strong>09XXXXXXXX</strong></p>
-    <button onclick="selectPayment('CBE Birr')">
-      CBE Birr Filadhu
-    </button>
-  </div>
-
-  <div class="payment-card">
-    <h3>🏦 Bank Transfer</h3>
-    <p>Herrega baankii irratti kaffali</p>
-    <button onclick="selectPayment('Bank Transfer')">
-      Bank Filadhu
-    </button>
-  </div>
-
-  <div id="paymentMessage"></div>
-</section>
-
-<style>
-.payment-section {
-  max-width: 500px;
-  margin: 30px auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-}
-
-.payment-card {
-  background: #fff;
-  padding: 20px;
-  margin: 15px 0;
-  border-radius: 12px;
-  box-shadow: 0 3px 12px rgba(0,0,0,0.12);
-}
-
-.payment-card button {
-  width: 100%;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-  background: #1976d2;
-  color: white;
-}
-
-#paymentMessage {
-  margin-top: 20px;
-  padding: 15px;
-  border-radius: 8px;
-  background: #f1f1f1;
-}
-</style>
-
-<script>
-<section class="payment-section">
-  <h2>💰 Payment</h2>
-
-  <label>Amount (Birr)</label>
-  <input id="amount" type="number" placeholder="Amount galchi" min="1">
-
-  <h3>Payment Method</h3>
-
-  <button onclick="showPayment('Telebirr')">
-    📱 Telebirr Filadhu
-  </button>
-
-  <button onclick="showPayment('CBE Birr')">
-    🏦 CBE Birr Filadhu
-  </button>
-
-  <button onclick="showPayment('Account')">
-    🏦 Account Filadhu
-  </button>
-
-  <div id="paymentBox" style="display:none;">
-    <h3 id="selectedMethod"></h3>
-
-    <p>Lakkoofsa kaffaltii:</p>
-    <h2 id="paymentNumber">0917118488</h2>
-
-    <label>Transaction ID</label>
-    <input id="transactionId" type="text"
-           placeholder="Transaction ID galchi">
-
-    <br><br>
-
-    <button onclick="confirmPayment()">
-      ✅ Confirm Payment
-    </button>
-
-    <p id="paymentMessage"></p>
-  </div>
-</section>
-
-<style>
-.payment-section {
-  max-width: 500px;
-  margin: 30px auto;
-  padding: 20px;
-  font-family: Arial, sans-serif;
-}
-
-.payment-section input {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 13px;
-  margin: 8px 0 18px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
-
-.payment-section button {
-  width: 100%;
-  padding: 13px;
-  margin: 7px 0;
-  border: 0;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-#paymentBox {
-  margin-top: 20px;
-  padding: 20px;
-  border-radius: 12px;
-  background: #f5f5f5;
-  text-align: center;
-}
-</style>
-
-<script>
-function showPayment(method) {
-  document.getElementById("paymentBox").style.display = "block";
-  document.getElementById("selectedMethod").innerText =
-    "Filannoo: " + method;
-
-  if (method === "Telebirr") {
-    document.getElementById("paymentNumber").innerText =
-      "0917118488";
-  } else {
-    document.getElementById("paymentNumber").innerText =
-      "0917118488";
-  }
-}
-
-function confirmPayment() {
-  const amount = document.getElementById("amount").value;
-  const transactionId =
-    document.getElementById("transactionId").value;
-
-  if (!amount || !transactionId) {
-    document.getElementById("paymentMessage").innerText =
-      "⚠️ Amount fi Transaction ID guuti galchi.";
-    return;
-  }
-
-  document.getElementById("paymentMessage").innerText =
-    "✅ Payment request kee galmaa'eera.";
-}
-</script>
