@@ -1,72 +1,101 @@
 <!DOCTYPE html>
 <html lang="om">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ILUMINANTI - Leenjii Online</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #172033;
-    }
+<title>ILUMINANTI - Leenjii Online</title>
 
-    header {
-      background: #172a52;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
+<style>
+*{
+  box-sizing:border-box;
+}
 
-    .hero {
-      background: #3157a4;
-      color: white;
-      text-align: center;
-      padding: 50px 20px;
-    }
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f7fb;
+  color:#172033;
+}
 
-    section {
-      max-width: 500px;
-      margin: 30px auto;
-      padding: 25px;
-    }
+header{
+  background:#172a52;
+  color:white;
+  padding:22px 15px;
+  text-align:center;
+}
 
-    .box {
-      background: white;
-      padding: 25px;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px #0002;
-    }
+.hero{
+  background:#3157a4;
+  color:white;
+  text-align:center;
+  padding:45px 20px;
+}
 
-    input {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 13px;
-      margin: 8px 0;
-      border: 1px solid #ccc;
-      border-radius: 7px;
-    }
+section{
+  max-width:520px;
+  margin:25px auto;
+  padding:15px;
+}
 
-    button {
-      width: 100%;
-      padding: 13px;
-      margin-top: 10px;
-      border: 0;
-      border-radius: 7px;
-      background: #172a52;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-    }
+.box{
+  background:white;
+  padding:25px;
+  border-radius:15px;
+  box-shadow:0 4px 15px #0002;
+}
 
-    #message {
-      margin-top: 15px;
-      text-align: center;
-      font-weight: bold;
-    }
-  </style>
+input,
+select{
+  width:100%;
+  padding:13px;
+  margin:8px 0 15px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:15px;
+}
+
+label{
+  display:block;
+  margin-top:10px;
+  font-weight:bold;
+}
+
+button{
+  width:100%;
+  padding:13px;
+  margin-top:8px;
+  border:0;
+  border-radius:8px;
+  background:#172a52;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+}
+
+button:active{
+  transform:scale(.98);
+}
+
+.document-box{
+  background:#f5f7ff;
+  padding:15px;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+.notice{
+  font-size:13px;
+  color:#555;
+  line-height:1.5;
+}
+
+#message{
+  margin-top:15px;
+  text-align:center;
+  font-weight:bold;
+}
+</style>
 </head>
 
 <body>
@@ -85,46 +114,99 @@
 </div>
 
 <section>
-  <div class="box">
 
-    <h2>📝 Galmaa'i</h2>
+<div class="box">
 
-    <input
-      id="name"
-      type="text"
-      placeholder="Maqaa kee"
-    >
+<h2>📝 Galmee Miseensummaa</h2>
 
-    <input
-      id="phone"
-      type="tel"
-      placeholder="Lakkoofsa bilbilaa (09XXXXXXXX)"
-    >
+<label>Maqaa Guutuu</label>
+<input
+  id="name"
+  type="text"
+  placeholder="Maqaa kee guutuu"
+>
 
-    <input
-      id="email"
-      type="email"
-      placeholder="Email kee"
-    >
+<label>Lakkoofsa Bilbilaa</label>
+<input
+  id="phone"
+  type="tel"
+  placeholder="09XXXXXXXX"
+  maxlength="10"
+>
 
-    <input
-      id="password"
-      type="password"
-      placeholder="Password kee"
-    >
+<label>Email</label>
+<input
+  id="email"
+  type="email"
+  placeholder="Email kee"
+>
 
-    <button id="signup">
-      Account Uumi
-    </button>
+<label>Password</label>
+<input
+  id="password"
+  type="password"
+  placeholder="Password kee"
+>
 
-    <button id="login">
-      Seeni
-    </button>
+<div class="document-box">
 
-    <p id="message"></p>
+<h3>🪪 Mirkaneessa Eenyummaa</h3>
 
-  </div>
+<p>
+Document tokko filadhu:
+</p>
+
+<select id="documentType">
+
+<option value="">
+Document filadhu
+</option>
+
+<option value="Digital ID">
+Digital ID
+</option>
+
+<option value="Passport">
+Passport
+</option>
+
+<option value="Driving Licence">
+Driving Licence
+</option>
+
+</select>
+
+<label>Document Upload</label>
+
+<input
+  id="documentFile"
+  type="file"
+  accept="image/*,.pdf"
+>
+
+<p class="notice">
+🔒 Document kee mirkaneessaaf qofa fayyada.
+Document nama biraa hin fayyadamin.
+Document mootummaa walitti qabuun dura
+seera fi privacy kee sirriitti qopheessi.
+</p>
+
+</div>
+
+<button id="signup">
+  ✅ Account Uumi
+</button>
+
+<button id="login">
+  🔐 Seeni
+</button>
+
+<p id="message"></p>
+
+</div>
+
 </section>
+
 
 <script type="module">
 
@@ -140,12 +222,25 @@ import {
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
-  authDomain: "iluminanti-42c47.firebaseapp.com",
-  projectId: "iluminanti-42c47",
-  storageBucket: "iluminanti-42c47.firebasestorage.app",
-  messagingSenderId: "487766650464",
-  appId: "1:487766650464:web:af9aaf5bcb5bb17e679d05"
+
+  apiKey:
+  "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
+
+  authDomain:
+  "iluminanti-42c47.firebaseapp.com",
+
+  projectId:
+  "iluminanti-42c47",
+
+  storageBucket:
+  "iluminanti-42c47.firebasestorage.app",
+
+  messagingSenderId:
+  "487766650464",
+
+  appId:
+  "1:487766650464:web:af9aaf5bcb5bb17e679d05"
+
 };
 
 
@@ -153,51 +248,105 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 
-const name = document.getElementById("name");
-const phone = document.getElementById("phone");
-const email = document.getElementById("email");
-const password = document.getElementById("password");
-const message = document.getElementById("message");
+const name =
+document.getElementById("name");
+
+const phone =
+document.getElementById("phone");
+
+const email =
+document.getElementById("email");
+
+const password =
+document.getElementById("password");
+
+const documentType =
+document.getElementById("documentType");
+
+const documentFile =
+document.getElementById("documentFile");
+
+const message =
+document.getElementById("message");
 
 
 document.getElementById("signup").onclick =
-async () => {
+async function(){
 
-  const userName = name.value.trim();
-  const userPhone = phone.value.trim();
-  const userEmail = email.value.trim();
-  const userPassword = password.value;
+  const userName =
+  name.value.trim();
+
+  const userPhone =
+  phone.value.trim();
+
+  const userEmail =
+  email.value.trim();
+
+  const userPassword =
+  password.value;
+
+  const selectedDocument =
+  documentType.value;
+
+  const file =
+  documentFile.files[0];
 
 
-  if (!userName) {
+  if(!userName){
+
     message.textContent =
-      "⚠️ Mee maqaa kee galchi.";
+    "⚠️ Mee maqaa kee galchi.";
+
     return;
   }
 
 
-  if (!/^09[0-9]{8}$/.test(userPhone)) {
+  if(!/^09[0-9]{8}$/.test(userPhone)){
+
     message.textContent =
-      "⚠️ Lakkoofsa bilbilaa sirrii galchi.";
+    "⚠️ Lakkoofsa bilbilaa sirrii galchi.";
+
     return;
   }
 
 
-  if (!userEmail) {
+  if(!userEmail){
+
     message.textContent =
-      "⚠️ Mee email kee galchi.";
+    "⚠️ Mee email kee galchi.";
+
     return;
   }
 
 
-  if (userPassword.length < 6) {
+  if(userPassword.length < 6){
+
     message.textContent =
-      "⚠️ Password yoo xiqqaate qubee 6 qabaachuu qaba.";
+    "⚠️ Password yoo xiqqaate qubee 6 qabaachuu qaba.";
+
     return;
   }
 
 
-  try {
+  if(!selectedDocument){
+
+    message.textContent =
+    "⚠️ Mee Digital ID, Passport ykn Driving Licence keessaa tokko filadhu.";
+
+    return;
+  }
+
+
+  if(!file){
+
+    message.textContent =
+    "⚠️ Mee document kee upload godhi.";
+
+    return;
+  }
+
+
+  try{
 
     await createUserWithEmailAndPassword(
       auth,
@@ -205,13 +354,28 @@ async () => {
       userPassword
     );
 
-    message.textContent =
-      "✅ Account kee uumameera! Amma Seeni.";
-
-  } catch (error) {
 
     message.textContent =
+    "✅ Account kee uumameera! Amma Seeni.";
+
+  }
+
+  catch(error){
+
+    if(error.code ===
+      "auth/email-already-in-use"){
+
+      message.textContent =
+      "⚠️ Email kun duraan account qaba.";
+
+    }
+
+    else{
+
+      message.textContent =
       "❌ Account uumuu hin dandeenye.";
+
+    }
 
   }
 
@@ -219,23 +383,42 @@ async () => {
 
 
 document.getElementById("login").onclick =
-async () => {
+async function(){
 
-  try {
+  const userEmail =
+  email.value.trim();
+
+  const userPassword =
+  password.value;
+
+
+  if(!userEmail || !userPassword){
+
+    message.textContent =
+    "⚠️ Email fi password galchi.";
+
+    return;
+  }
+
+
+  try{
 
     await signInWithEmailAndPassword(
       auth,
-      email.value.trim(),
-      password.value
+      userEmail,
+      userPassword
     );
 
-    window.location.href =
-      "dashboard.html";
 
-  } catch (error) {
+    window.location.href =
+    "dashboard.html";
+
+  }
+
+  catch(error){
 
     message.textContent =
-      "❌ Email ykn password sirrii miti.";
+    "❌ Email ykn password sirrii miti.";
 
   }
 
