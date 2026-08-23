@@ -3,13 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>ILUMINANTI - Admin Dashboard</title>
+<title>ILUMINANTI Admin Dashboard</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -39,13 +36,18 @@ header{
   box-shadow:0 4px 15px #0002;
 }
 
-input{
+input,textarea{
   width:100%;
   padding:13px;
   margin:8px 0 15px;
   border:1px solid #ccc;
   border-radius:8px;
   font-size:15px;
+}
+
+textarea{
+  min-height:150px;
+  resize:vertical;
 }
 
 button{
@@ -56,10 +58,15 @@ button{
   border-radius:8px;
   color:white;
   font-size:16px;
+  cursor:pointer;
 }
 
 .login{
   background:#172a52;
+}
+
+.publish{
+  background:#168a45;
 }
 
 .approve{
@@ -74,16 +81,19 @@ button{
   background:#555;
 }
 
-.member{
+.post{
   border:1px solid #ddd;
   border-radius:12px;
   padding:18px;
-  margin:15px 0;
-  background:#fafafa;
+  margin-top:15px;
 }
 
-.status{
-  font-weight:bold;
+.post img{
+  width:100%;
+  max-height:350px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-top:10px;
 }
 
 .message{
@@ -96,66 +106,140 @@ button{
 .hidden{
   display:none;
 }
+
+.member{
+  border:1px solid #ddd;
+  border-radius:12px;
+  padding:18px;
+  margin:15px 0;
+  background:#fafafa;
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <h1>ILUMINANTI</h1>
-  <p>Admin Dashboard</p>
+<h1>ILUMINANTI</h1>
+<p>Admin Dashboard</p>
 </header>
 
 <div class="container">
 
-  <div class="card" id="loginBox">
+<!-- LOGIN -->
 
-    <h2>🔐 Admin Login</h2>
+<div class="card" id="loginBox">
 
-    <label>Admin Email</label>
+<h2>🔐 Admin Login</h2>
 
-    <input
-      id="adminEmail"
-      type="email"
-      placeholder="Admin Email"
-    >
+<label>Admin Email</label>
 
-    <label>Admin Password</label>
+<input
+id="adminEmail"
+type="email"
+placeholder="Admin Email">
 
-    <input
-      id="adminPassword"
-      type="password"
-      placeholder="Admin Password"
-    >
+<label>Admin Password</label>
 
-    <button
-      class="login"
-      id="loginButton">
-      🔐 Seeni
-    </button>
+<input
+id="adminPassword"
+type="password"
+placeholder="Admin Password">
 
-    <p id="loginMessage" class="message"></p>
+<button
+class="login"
+id="loginButton">
+🔐 Seeni
+</button>
 
-  </div>
+<p
+id="loginMessage"
+class="message">
+</p>
+
+</div>
 
 
-  <div
-    class="card hidden"
-    id="adminPanel">
+<!-- ADMIN -->
 
-    <h2>👥 Miseensota ILUMINANTI</h2>
+<div
+class="hidden"
+id="adminPanel">
 
-    <div id="members">
-      ⏳ Miseensota fe'aa jira...
-    </div>
 
-    <button
-      class="logout"
-      id="logoutButton">
-      🚪 Ba'i
-    </button>
+<!-- POST -->
 
-  </div>
+<div class="card">
+
+<h2>📝 Post Haaraa</h2>
+
+<label>Mata-duree</label>
+
+<input
+id="postTitle"
+type="text"
+placeholder="Mata-duree postii">
+
+<label>Barreeffama</label>
+
+<textarea
+id="postContent"
+placeholder="Barreeffama postii asitti barreessi"></textarea>
+
+<label>Suuraa</label>
+
+<input
+id="postImage"
+type="file"
+accept="image/*">
+
+<button
+class="publish"
+id="publishButton">
+📢 Publish Post
+</button>
+
+<p
+id="postMessage"
+class="message">
+</p>
+
+</div>
+
+
+<!-- MEMBERS -->
+
+<div class="card">
+
+<h2>👥 Miseensota</h2>
+
+<div id="members">
+⏳ Fe'aa jira...
+</div>
+
+</div>
+
+
+<!-- POSTS -->
+
+<div class="card">
+
+<h2>📢 Postoota Maxxanfaman</h2>
+
+<div id="posts">
+⏳ Fe'aa jira...
+</div>
+
+</div>
+
+
+<button
+class="logout"
+id="logoutButton">
+🚪 Ba'i
+</button>
+
+</div>
 
 </div>
 
@@ -176,31 +260,35 @@ import {
   getFirestore,
   collection,
   getDocs,
+  addDoc,
   doc,
-  updateDoc
+  updateDoc,
+  serverTimestamp
 } from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
+/* FIREBASE */
+
 const firebaseConfig = {
 
-  apiKey:
-  "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
+apiKey:
+"AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
 
-  authDomain:
-  "iluminanti-42c47.firebaseapp.com",
+authDomain:
+"iluminanti-42c47.firebaseapp.com",
 
-  projectId:
-  "iluminanti-42c47",
+projectId:
+"iluminanti-42c47",
 
-  storageBucket:
-  "iluminanti-42c47.firebasestorage.app",
+storageBucket:
+"iluminanti-42c47.firebasestorage.app",
 
-  messagingSenderId:
-  "487766650464",
+messagingSenderId:
+"487766650464",
 
-  appId:
-  "1:487766650464:web:af9aaf5bcb5bb17e679d05"
+appId:
+"1:487766650464:web:af9aaf5bcb5bb17e679d05"
 
 };
 
@@ -215,11 +303,13 @@ const db =
 getFirestore(app);
 
 
-/* EMAIL ADMIN KEE */
+/* ADMIN EMAIL */
 
 const ADMIN_EMAIL =
 "isoo97784@gmail.com";
 
+
+/* ELEMENTS */
 
 const loginBox =
 document.getElementById("loginBox");
@@ -233,8 +323,11 @@ document.getElementById("loginMessage");
 const members =
 document.getElementById("members");
 
+const posts =
+document.getElementById("posts");
 
-/* ADMIN LOGIN */
+
+/* LOGIN */
 
 document.getElementById(
 "loginButton"
@@ -242,280 +335,521 @@ document.getElementById(
 "click",
 async function(){
 
-  const email =
-  document.getElementById(
-  "adminEmail"
-  ).value.trim();
+const email =
+document.getElementById(
+"adminEmail"
+).value.trim();
 
-  const password =
-  document.getElementById(
-  "adminPassword"
-  ).value;
-
-
-  if(!email || !password){
-
-    loginMessage.textContent =
-    "⚠️ Email fi password galchi.";
-
-    return;
-
-  }
+const password =
+document.getElementById(
+"adminPassword"
+).value;
 
 
-  if(email.toLowerCase() !==
-     ADMIN_EMAIL.toLowerCase()){
+if(!email || !password){
 
-    loginMessage.textContent =
-    "❌ Email kun admin miti.";
+loginMessage.textContent =
+"⚠️ Email fi password galchi.";
 
-    return;
+return;
 
-  }
-
-
-  try{
-
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+}
 
 
-    loginBox.classList.add(
-      "hidden"
-    );
+if(email.toLowerCase() !==
+ADMIN_EMAIL.toLowerCase()){
 
-    adminPanel.classList.remove(
-      "hidden"
-    );
+loginMessage.textContent =
+"❌ Email kun admin miti.";
 
-    loadMembers();
+return;
 
-  }
+}
 
-  catch(error){
 
-    console.error(error);
+try{
 
-    loginMessage.textContent =
-    "❌ " +
-    error.code +
-    " — " +
-    error.message;
+await signInWithEmailAndPassword(
+auth,
+email,
+password
+);
 
-  }
+loginBox.classList.add(
+"hidden"
+);
+
+adminPanel.classList.remove(
+"hidden"
+);
+
+loadMembers();
+loadPosts();
+
+}
+
+catch(error){
+
+console.error(error);
+
+loginMessage.textContent =
+"❌ " +
+error.code +
+" — " +
+error.message;
+
+}
 
 });
 
 
-/* MEMBERS LOAD */
+/* PUBLISH POST */
+
+document.getElementById(
+"publishButton"
+).addEventListener(
+"click",
+async function(){
+
+const title =
+document.getElementById(
+"postTitle"
+).value.trim();
+
+const content =
+document.getElementById(
+"postContent"
+).value.trim();
+
+const imageFile =
+document.getElementById(
+"postImage"
+).files[0];
+
+const message =
+document.getElementById(
+"postMessage"
+);
+
+
+if(!title){
+
+message.textContent =
+"⚠️ Mata-duree galchi.";
+
+return;
+
+}
+
+
+if(!content){
+
+message.textContent =
+"⚠️ Barreeffama galchi.";
+
+return;
+
+}
+
+
+/*
+SUURAA BASE64
+Firebase Storage hin fayyadamnu.
+Suuraa xiqqaa qofa fayyadami.
+*/
+
+let image = "";
+
+
+if(imageFile){
+
+if(imageFile.size >
+800000){
+
+message.textContent =
+"⚠️ Suuraan guddaa dha. " +
+"Suuraa xiqqaa filadhu.";
+
+return;
+
+}
+
+
+image =
+await fileToBase64(
+imageFile
+);
+
+}
+
+
+try{
+
+await addDoc(
+
+collection(
+db,
+"posts"
+),
+
+{
+
+title:title,
+
+content:content,
+
+image:image,
+
+date:new Date()
+.toLocaleDateString(
+"om-ET"
+),
+
+createdAt:
+serverTimestamp()
+
+}
+
+);
+
+
+message.textContent =
+"✅ Post milkaa'inaan maxxanfameera.";
+
+document.getElementById(
+"postTitle"
+).value = "";
+
+document.getElementById(
+"postContent"
+).value = "";
+
+document.getElementById(
+"postImage"
+).value = "";
+
+loadPosts();
+
+}
+
+catch(error){
+
+console.error(error);
+
+message.textContent =
+"❌ Post maxxansuu hin dandeenye: " +
+error.code;
+
+}
+
+});
+
+
+/* FILE → BASE64 */
+
+function fileToBase64(file){
+
+return new Promise(
+function(resolve,reject){
+
+const reader =
+new FileReader();
+
+reader.onload =
+function(){
+
+resolve(
+reader.result
+);
+
+};
+
+reader.onerror =
+function(){
+
+reject(
+reader.error
+);
+
+};
+
+reader.readAsDataURL(
+file
+);
+
+});
+
+}
+
+
+/* LOAD MEMBERS */
 
 async function loadMembers(){
 
-  members.innerHTML =
-  "⏳ Miseensota fe'aa jira...";
+members.innerHTML =
+"⏳ Miseensota fe'aa jira...";
 
 
-  try{
+try{
 
-    const snapshot =
-    await getDocs(
-      collection(db,"members")
-    );
-
-
-    if(snapshot.empty){
-
-      members.innerHTML =
-      "<p>📭 Miseensi tokko illee hin jiru.</p>";
-
-      return;
-
-    }
+const snapshot =
+await getDocs(
+collection(
+db,
+"members"
+)
+);
 
 
-    members.innerHTML = "";
+if(snapshot.empty){
 
+members.innerHTML =
+"📭 Miseensi tokko illee hin jiru.";
 
-    snapshot.forEach(function(
-      memberDoc
-    ){
-
-      const data =
-      memberDoc.data();
-
-      const id =
-      memberDoc.id;
-
-
-      const div =
-      document.createElement("div");
-
-      div.className =
-      "member";
-
-
-      div.innerHTML = `
-
-        <h3>
-        👤 ${data.name || "-"}
-        </h3>
-
-        <p>
-        📱 Phone:
-        ${data.phone || "-"}
-        </p>
-
-        <p>
-        📧 Email:
-        ${data.email || "-"}
-        </p>
-
-        <p>
-        🪪 Document:
-        ${data.documentType || "-"}
-        </p>
-
-        <p>
-        📄 File:
-        ${data.documentFileName || "-"}
-        </p>
-
-        <p class="status">
-        📌 Status:
-        ${data.status || "pending"}
-        </p>
-
-        <button
-        class="approve">
-        ✅ Approve
-        </button>
-
-        <button
-        class="reject">
-        ❌ Reject
-        </button>
-      `;
-
-
-      div.querySelector(
-        ".approve"
-      ).addEventListener(
-        "click",
-        function(){
-          approveMember(id);
-        }
-      );
-
-
-      div.querySelector(
-        ".reject"
-      ).addEventListener(
-        "click",
-        function(){
-          rejectMember(id);
-        }
-      );
-
-
-      members.appendChild(div);
-
-    });
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    members.innerHTML =
-    "<p>❌ Rakkoo database: " +
-    error.code +
-    "</p>";
-
-  }
+return;
 
 }
 
 
-/* APPROVE */
+members.innerHTML = "";
 
-async function approveMember(id){
 
-  try{
+snapshot.forEach(
+function(memberDoc){
 
-    await updateDoc(
+const data =
+memberDoc.data();
 
-      doc(
-        db,
-        "members",
-        id
-      ),
+const div =
+document.createElement(
+"div"
+);
 
-      {
-        status:"approved"
-      }
+div.className =
+"member";
 
-    );
 
-    alert(
-      "✅ Miseensi approve ta'eera."
-    );
+div.innerHTML = `
 
-    loadMembers();
+<h3>
+👤 ${data.name || "-"}
+</h3>
 
-  }
+<p>
+📱 ${data.phone || "-"}
+</p>
 
-  catch(error){
+<p>
+📧 ${data.email || "-"}
+</p>
 
-    alert(
-      "❌ Approve hin milkoofne: " +
-      error.message
-    );
+<p>
+🪪 ${data.documentType || "-"}
+</p>
 
-  }
+<p>
+📌 Status:
+<strong>
+${data.status || "pending"}
+</strong>
+</p>
+
+<button
+class="approve">
+✅ Approve
+</button>
+
+<button
+class="reject">
+❌ Reject
+</button>
+
+`;
+
+
+div.querySelector(
+".approve"
+).onclick =
+function(){
+
+changeStatus(
+memberDoc.id,
+"approved"
+);
+
+};
+
+
+div.querySelector(
+".reject"
+).onclick =
+function(){
+
+changeStatus(
+memberDoc.id,
+"rejected"
+);
+
+};
+
+
+members.appendChild(
+div
+);
+
+});
+
+}
+
+catch(error){
+
+console.error(error);
+
+members.innerHTML =
+"❌ Rakkoo database: " +
+error.code;
+
+}
 
 }
 
 
-/* REJECT */
+/* STATUS */
 
-async function rejectMember(id){
+async function changeStatus(
+id,
+status
+){
 
-  try{
+try{
 
-    await updateDoc(
+await updateDoc(
 
-      doc(
-        db,
-        "members",
-        id
-      ),
+doc(
+db,
+"members",
+id
+),
 
-      {
-        status:"rejected"
-      }
+{
 
-    );
+status:status
 
-    alert(
-      "❌ Miseensi rejected ta'eera."
-    );
+}
 
-    loadMembers();
+);
 
-  }
+alert(
+"✅ Status jijjiirame."
+);
 
-  catch(error){
+loadMembers();
 
-    alert(
-      "❌ Reject hin milkoofne: " +
-      error.message
-    );
+}
 
-  }
+catch(error){
+
+alert(
+"❌ " +
+error.message
+);
+
+}
+
+}
+
+
+/* LOAD POSTS */
+
+async function loadPosts(){
+
+posts.innerHTML =
+"⏳ Postoota fe'aa jira...";
+
+
+try{
+
+const snapshot =
+await getDocs(
+collection(
+db,
+"posts"
+)
+);
+
+
+if(snapshot.empty){
+
+posts.innerHTML =
+"📭 Post hin jiru.";
+
+return;
+
+}
+
+
+posts.innerHTML = "";
+
+
+snapshot.forEach(
+function(postDoc){
+
+const data =
+postDoc.data();
+
+
+const div =
+document.createElement(
+"div"
+);
+
+div.className =
+"post";
+
+
+div.innerHTML = `
+
+<h3>
+${data.title || ""}
+</h3>
+
+<p>
+${data.content || ""}
+</p>
+
+${
+data.image
+?
+`<img
+src="${data.image}"
+alt="Post image">`
+:
+""
+}
+
+<p>
+📅 ${data.date || ""}
+</p>
+
+`;
+
+
+posts.appendChild(
+div
+);
+
+});
+
+}
+
+catch(error){
+
+console.error(error);
+
+posts.innerHTML =
+"❌ Postoota arguu hin dandeenye.";
+
+}
 
 }
 
@@ -528,22 +862,9 @@ document.getElementById(
 "click",
 async function(){
 
-  await signOut(auth);
+await signOut(auth);
 
-  adminPanel.classList.add(
-    "hidden"
-  );
-
-  loginBox.classList.remove(
-    "hidden"
-  );
-
-  document.getElementById(
-    "adminPassword"
-  ).value = "";
-
-  loginMessage.textContent =
-  "Admin ba'eera.";
+window.location.reload();
 
 });
 
