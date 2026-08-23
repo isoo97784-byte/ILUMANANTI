@@ -58,10 +58,6 @@ button{
   cursor:pointer;
 }
 
-button:active{
-  transform:scale(.98);
-}
-
 input{
   width:100%;
   padding:13px;
@@ -97,6 +93,18 @@ input{
   background:#168a45;
 }
 
+.whatsapp{
+  background:#168a45;
+}
+
+.telegram{
+  background:#229ed9;
+}
+
+.call{
+  background:#172a52;
+}
+
 .message{
   margin-top:15px;
   padding:12px;
@@ -107,6 +115,11 @@ input{
 
 .logout{
   background:#b3261e;
+}
+
+.support-text{
+  text-align:center;
+  line-height:1.6;
 }
 </style>
 </head>
@@ -123,7 +136,9 @@ input{
   <!-- WELCOME -->
   <div class="card">
     <h2>🎓 Baga Nagaan Dhuftan!</h2>
-    <p>Koorsii fi kaffaltii kee as irraa bulchi.</p>
+    <p>
+      Koorsii fi kaffaltii kee as irraa bulchi.
+    </p>
   </div>
 
 
@@ -135,19 +150,25 @@ input{
     <div class="course">
       <h3>💻 Computer Basics</h3>
       <p>Bu'uura computer baradhu.</p>
-      <button>Koorsii Jalqabi</button>
+      <button>
+        Koorsii Jalqabi
+      </button>
     </div>
 
     <div class="course">
       <h3>🌐 Digital Skills</h3>
       <p>Dandeettii dijitaalaa baradhu.</p>
-      <button>Koorsii Jalqabi</button>
+      <button>
+        Koorsii Jalqabi
+      </button>
     </div>
 
     <div class="course">
       <h3>🇬🇧 Afaan Ingilizii</h3>
       <p>Afaan Ingilizii baradhu.</p>
-      <button>Koorsii Jalqabi</button>
+      <button>
+        Koorsii Jalqabi
+      </button>
     </div>
 
   </div>
@@ -158,7 +179,9 @@ input{
 
     <h2>💰 Kaffaltii</h2>
 
-    <p>Amount kaffaltu galchi.</p>
+    <p>
+      Amount kaffaltu galchi.
+    </p>
 
     <label>Amount (Birr)</label>
 
@@ -177,7 +200,9 @@ input{
 
       <p>Herrega kaffaltii:</p>
 
-      <div class="number" id="accountNumber">
+      <div
+        class="number"
+        id="accountNumber">
         1000237524547
       </div>
 
@@ -197,7 +222,9 @@ input{
 
       <p>Lakkoofsa Telebirr:</p>
 
-      <div class="number" id="telebirrNumber">
+      <div
+        class="number"
+        id="telebirrNumber">
         0917118488
       </div>
 
@@ -217,7 +244,9 @@ input{
 
       <p>Lakkoofsa CBE Birr:</p>
 
-      <div class="number" id="cbeNumber">
+      <div
+        class="number"
+        id="cbeNumber">
         0917118488
       </div>
 
@@ -230,12 +259,14 @@ input{
     </div>
 
 
-    <!-- TRANSACTION -->
+    <!-- RECEIPT -->
     <div class="payment-method">
 
       <h3>🧾 Ragaa Kaffaltii</h3>
 
-      <label>Transaction ID</label>
+      <label>
+        Transaction ID
+      </label>
 
       <input
         id="transactionId"
@@ -243,15 +274,15 @@ input{
         placeholder="Transaction ID galchi"
       >
 
-
-      <label>Receipt / Screenshot</label>
+      <label>
+        Receipt / Screenshot
+      </label>
 
       <input
         id="receipt"
         type="file"
         accept="image/*"
       >
-
 
       <button
         class="confirm"
@@ -265,6 +296,45 @@ input{
       </div>
 
     </div>
+
+  </div>
+
+
+  <!-- SUPPORT -->
+  <div class="card">
+
+    <h2>📞 Support</h2>
+
+    <p class="support-text">
+      Gaaffii ykn rakkoo yoo qabaatte
+      nu qunnami.
+      <br>
+      📱 <strong>0917118488</strong>
+    </p>
+
+
+    <!-- PHONE -->
+    <button
+      class="call"
+      onclick="window.location.href='tel:0917118488'">
+      📞 Nu Bilbili
+    </button>
+
+
+    <!-- WHATSAPP -->
+    <button
+      class="whatsapp"
+      onclick="window.open('https://wa.me/251917118488','_blank')">
+      💬 WhatsApp
+    </button>
+
+
+    <!-- TELEGRAM -->
+    <button
+      class="telegram"
+      onclick="openTelegram()">
+      ✈️ Telegram
+    </button>
 
   </div>
 
@@ -284,22 +354,29 @@ input{
 function copyNumber(id){
 
   const number =
-    document.getElementById(id).innerText.trim();
+    document.getElementById(id)
+    .innerText.trim();
 
-  if(navigator.clipboard){
+  if(
+    navigator.clipboard &&
+    window.isSecureContext
+  ){
 
-    navigator.clipboard.writeText(number)
+    navigator.clipboard
+      .writeText(number)
       .then(function(){
 
         alert(
-          "✅ Lakkoofsi copy ta'eera: " + number
+          "✅ Lakkoofsi copy ta'eera: "
+          + number
         );
 
       })
       .catch(function(){
 
         alert(
-          "Lakkoofsa kana copy godhi: " + number
+          "Lakkoofsa kana copy godhi: "
+          + number
         );
 
       });
@@ -307,7 +384,8 @@ function copyNumber(id){
   }else{
 
     alert(
-      "Lakkoofsa kana copy godhi: " + number
+      "Lakkoofsa kana copy godhi: "
+      + number
     );
 
   }
@@ -318,7 +396,8 @@ function copyNumber(id){
 function confirmPayment(){
 
   const amount =
-    document.getElementById("amount").value;
+    document.getElementById("amount")
+    .value;
 
   const transactionId =
     document.getElementById("transactionId")
@@ -329,7 +408,9 @@ function confirmPayment(){
     .files.length;
 
   const message =
-    document.getElementById("paymentMessage");
+    document.getElementById(
+      "paymentMessage"
+    );
 
 
   if(!amount){
@@ -365,9 +446,20 @@ function confirmPayment(){
 }
 
 
+function openTelegram(){
+
+  alert(
+    "Telegram username kee yoo qabaatte, " +
+    "username sana asitti galchi."
+  );
+
+}
+
+
 function logout(){
 
-  window.location.href="index.html";
+  window.location.href =
+    "index.html";
 
 }
 
