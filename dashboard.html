@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ILUMINANTI Member Dashboard</title>
+<title>ILUMINANTI Dashboard</title>
 
 <style>
 
@@ -41,22 +41,16 @@ header{
   box-shadow:0 4px 15px #0002;
 }
 
-/* =========================
-MEMBER CARD
-========================= */
+/* MEMBER CARD */
 
 .member-card{
   position:relative;
   overflow:hidden;
   color:white;
-  background:linear-gradient(
-    135deg,
-    #172a52,
-    #3157a4
-  );
+  background:linear-gradient(135deg,#172a52,#3157a4);
   border-radius:20px;
   padding:25px;
-  min-height:250px;
+  min-height:260px;
   box-shadow:0 8px 25px #0004;
 }
 
@@ -114,6 +108,9 @@ MEMBER CARD
   font-weight:bold;
 }
 
+
+/* GENERAL */
+
 button{
   width:100%;
   padding:13px;
@@ -126,22 +123,72 @@ button{
   cursor:pointer;
 }
 
-.logout{
-  background:#b3261e;
+button:active{
+  transform:scale(.98);
+}
+
+input{
+  width:100%;
+  padding:13px;
+  margin:8px 0 15px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:15px;
+}
+
+.payment-method{
+  border:1px solid #ddd;
+  padding:15px;
+  margin:12px 0;
+  border-radius:12px;
+  background:#fafafa;
+}
+
+.number{
+  background:#eef3ff;
+  padding:14px;
+  border-radius:8px;
+  font-size:20px;
+  font-weight:bold;
+  text-align:center;
+  word-break:break-all;
+}
+
+.copy{
+  background:#1976d2;
+}
+
+.confirm{
+  background:#168a45;
 }
 
 .refresh{
   background:#3157a4;
 }
 
-.message{
-  text-align:center;
-  font-weight:bold;
-  line-height:1.6;
+.whatsapp{
+  background:#168a45;
 }
 
-.hidden{
-  display:none;
+.telegram{
+  background:#229ed9;
+}
+
+.call{
+  background:#172a52;
+}
+
+.logout{
+  background:#b3261e;
+}
+
+.message{
+  margin-top:15px;
+  padding:12px;
+  border-radius:8px;
+  font-weight:bold;
+  text-align:center;
+  line-height:1.6;
 }
 
 .course{
@@ -149,6 +196,11 @@ button{
   padding:15px;
   margin:12px 0;
   border-radius:10px;
+}
+
+.support-text{
+  text-align:center;
+  line-height:1.6;
 }
 
 </style>
@@ -180,10 +232,7 @@ Dashboard Miseensaa
 🪪 Member Card
 </h2>
 
-
-<div
-class="member-card"
-id="memberCard">
+<div class="member-card">
 
 <div class="brand">
 ILUMINANTI
@@ -192,7 +241,6 @@ ILUMINANTI
 <div class="member-label">
 OFFICIAL MEMBER CARD
 </div>
-
 
 <div class="member-info">
 
@@ -211,7 +259,6 @@ id="memberId">
 Member ID: ...
 
 </div>
-
 
 <div class="member-details">
 
@@ -232,7 +279,6 @@ Member ID: ...
 
 </div>
 
-
 <span class="approved">
 ✓ APPROVED MEMBER
 </span>
@@ -240,7 +286,6 @@ Member ID: ...
 </div>
 
 </div>
-
 
 <button
 class="refresh"
@@ -262,8 +307,8 @@ onclick="loadMember()">
 </h2>
 
 <p>
-Ati miseensa mirkanaa'e
-ILUMINANTI ti.
+Ati miseensa mirkanaa'e ILUMINANTI ti.
+Koorsii fi kaffaltii kee as irraa bulchi.
 </p>
 
 </div>
@@ -277,7 +322,6 @@ ILUMINANTI ti.
 📚 Koorsiiwwan
 </h2>
 
-
 <div class="course">
 
 <h3>
@@ -288,8 +332,11 @@ ILUMINANTI ti.
 Bu'uura computer baradhu.
 </p>
 
-</div>
+<button>
+Koorsii Jalqabi
+</button>
 
+</div>
 
 <div class="course">
 
@@ -301,8 +348,11 @@ Bu'uura computer baradhu.
 Dandeettii dijitaalaa baradhu.
 </p>
 
-</div>
+<button>
+Koorsii Jalqabi
+</button>
 
+</div>
 
 <div class="course">
 
@@ -314,7 +364,220 @@ Dandeettii dijitaalaa baradhu.
 Afaan Ingilizii baradhu.
 </p>
 
+<button>
+Koorsii Jalqabi
+</button>
+
 </div>
+
+</div>
+
+
+<!-- PAYMENT -->
+
+<div class="card">
+
+<h2>
+💰 Kaffaltii
+</h2>
+
+<p>
+Amount kaffaltu galchi.
+</p>
+
+<label>
+Amount (Birr)
+</label>
+
+<input
+id="amount"
+type="number"
+min="1"
+placeholder="Fakkeenya: 100"
+>
+
+
+<!-- ACCOUNT -->
+
+<div class="payment-method">
+
+<h3>
+🏦 Account Number
+</h3>
+
+<p>
+Herrega kaffaltii:
+</p>
+
+<div
+class="number"
+id="accountNumber">
+
+1000237524547
+
+</div>
+
+<button
+class="copy"
+onclick="copyNumber('accountNumber')">
+
+📋 Account Number Copy Godhi
+
+</button>
+
+</div>
+
+
+<!-- TELEBIRR -->
+
+<div class="payment-method">
+
+<h3>
+📱 Telebirr
+</h3>
+
+<p>
+Lakkoofsa Telebirr:
+</p>
+
+<div
+class="number"
+id="telebirrNumber">
+
+0917118488
+
+</div>
+
+<button
+class="copy"
+onclick="copyNumber('telebirrNumber')">
+
+📋 Telebirr Number Copy Godhi
+
+</button>
+
+</div>
+
+
+<!-- CBE BIRR -->
+
+<div class="payment-method">
+
+<h3>
+📱 CBE Birr
+</h3>
+
+<p>
+Lakkoofsa CBE Birr:
+</p>
+
+<div
+class="number"
+id="cbeNumber">
+
+0917118488
+
+</div>
+
+<button
+class="copy"
+onclick="copyNumber('cbeNumber')">
+
+📋 CBE Birr Number Copy Godhi
+
+</button>
+
+</div>
+
+
+<!-- RECEIPT -->
+
+<div class="payment-method">
+
+<h3>
+🧾 Ragaa Kaffaltii
+</h3>
+
+<label>
+Transaction ID
+</label>
+
+<input
+id="transactionId"
+type="text"
+placeholder="Transaction ID galchi"
+>
+
+<label>
+Receipt / Screenshot
+</label>
+
+<input
+id="receipt"
+type="file"
+accept="image/*"
+>
+
+<button
+class="confirm"
+onclick="confirmPayment()">
+
+✅ Confirm Payment
+
+</button>
+
+<div
+id="paymentMessage"
+class="message">
+</div>
+
+</div>
+
+</div>
+
+
+<!-- SUPPORT -->
+
+<div class="card">
+
+<h2>
+📞 Support
+</h2>
+
+<p class="support-text">
+
+Gaaffii ykn rakkoo yoo qabaatte
+nu qunnami.
+
+<br><br>
+
+📱 <strong>0917118488</strong>
+
+</p>
+
+<button
+class="call"
+onclick="window.location.href='tel:0917118488'">
+
+📞 Nu Bilbili
+
+</button>
+
+<button
+class="whatsapp"
+onclick="window.open('https://wa.me/251917118488','_blank')">
+
+💬 WhatsApp
+
+</button>
+
+<button
+class="telegram"
+onclick="openTelegram()">
+
+✈️ Telegram
+
+</button>
 
 </div>
 
@@ -324,6 +587,8 @@ id="message"
 class="message">
 </p>
 
+
+<!-- LOGOUT -->
 
 <button
 class="logout"
@@ -399,15 +664,7 @@ const db =
 getFirestore(app);
 
 
-const message =
-document.getElementById(
-"message"
-);
-
-
-/* =========================
-AUTH CHECK
-========================= */
+/* AUTH */
 
 onAuthStateChanged(
 auth,
@@ -427,9 +684,7 @@ loadMember();
 });
 
 
-/* =========================
-LOAD MEMBER
-========================= */
+/* MEMBER */
 
 async function loadMember(){
 
@@ -437,7 +692,6 @@ try{
 
 const user =
 auth.currentUser;
-
 
 if(!user){
 
@@ -462,7 +716,9 @@ memberRef
 
 if(!snapshot.exists()){
 
-message.textContent =
+document.getElementById(
+"message"
+).textContent =
 "⚠️ Odeeffannoon miseensaa hin jiru.";
 
 return;
@@ -474,13 +730,13 @@ const data =
 snapshot.data();
 
 
-/* STATUS */
-
 if(data.status !==
 "approved"){
 
-message.textContent =
-"⚠️ Account kee ammallee approved miti.";
+document.getElementById(
+"message"
+).textContent =
+"⚠️ Account kee approved miti.";
 
 return;
 
@@ -495,13 +751,16 @@ document.getElementById(
 data.name || "Member";
 
 
-/* MEMBER ID */
+/* ID */
 
 document.getElementById(
 "memberId"
 ).textContent =
 "Member ID: " +
-user.uid.substring(0,8).toUpperCase();
+user.uid.substring(
+0,
+8
+).toUpperCase();
 
 
 /* PHONE */
@@ -517,14 +776,15 @@ data.phone || "-";
 document.getElementById(
 "memberEmail"
 ).textContent =
-data.email || user.email || "-";
+data.email ||
+user.email ||
+"-";
 
 
 /* DATE */
 
 let date =
 data.createdAt || "";
-
 
 if(date){
 
@@ -540,12 +800,10 @@ new Date(date)
 
 }
 
-
 document.getElementById(
 "memberDate"
 ).textContent =
 date || "-";
-
 
 }
 
@@ -553,8 +811,10 @@ catch(error){
 
 console.error(error);
 
-message.textContent =
-"❌ Rakkoo odeeffannoo: " +
+document.getElementById(
+"message"
+).textContent =
+"❌ Rakkoo database: " +
 error.code;
 
 }
@@ -562,9 +822,133 @@ error.code;
 }
 
 
-/* =========================
-LOGOUT
-========================= */
+/* COPY */
+
+function copyNumber(id){
+
+const number =
+document.getElementById(id)
+.innerText.trim();
+
+
+if(
+navigator.clipboard &&
+window.isSecureContext
+){
+
+navigator.clipboard
+.writeText(number)
+.then(function(){
+
+alert(
+"✅ Lakkoofsi copy ta'eera: "
++
+number
+);
+
+})
+.catch(function(){
+
+alert(
+"Lakkoofsa kana copy godhi: "
++
+number
+);
+
+});
+
+}
+
+else{
+
+alert(
+"Lakkoofsa kana copy godhi: "
++
+number
+);
+
+}
+
+}
+
+
+/* PAYMENT */
+
+function confirmPayment(){
+
+const amount =
+document.getElementById(
+"amount"
+).value;
+
+
+const transactionId =
+document.getElementById(
+"transactionId"
+).value.trim();
+
+
+const receipt =
+document.getElementById(
+"receipt"
+).files.length;
+
+
+const message =
+document.getElementById(
+"paymentMessage"
+);
+
+
+if(!amount){
+
+message.innerText =
+"⚠️ Mee Amount galchi.";
+
+return;
+
+}
+
+
+if(!transactionId){
+
+message.innerText =
+"⚠️ Mee Transaction ID galchi.";
+
+return;
+
+}
+
+
+if(!receipt){
+
+message.innerText =
+"⚠️ Mee receipt/screenshot galchi.";
+
+return;
+
+}
+
+
+message.innerText =
+"✅ Ragaan kaffaltii kee fudhatameera.";
+
+}
+
+
+/* TELEGRAM */
+
+function openTelegram(){
+
+alert(
+"Telegram username kee yoo qabaatte, " +
+"username sana asitti galchi."
+);
+
+}
+
+
+/* LOGOUT */
 
 async function logout(){
 
@@ -585,8 +969,18 @@ console.error(error);
 
 }
 
+
 window.loadMember =
 loadMember;
+
+window.copyNumber =
+copyNumber;
+
+window.confirmPayment =
+confirmPayment;
+
+window.openTelegram =
+openTelegram;
 
 window.logout =
 logout;
