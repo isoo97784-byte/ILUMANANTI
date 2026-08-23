@@ -7,9 +7,7 @@
 <title>ILUMINANTI - Leenjii Online</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -45,8 +43,7 @@ section{
   box-shadow:0 4px 15px #0002;
 }
 
-input,
-select{
+input,select{
   width:100%;
   padding:13px;
   margin:8px 0 15px;
@@ -71,10 +68,6 @@ button{
   color:white;
   font-size:16px;
   cursor:pointer;
-}
-
-button:active{
-  transform:scale(.98);
 }
 
 .document-box{
@@ -107,73 +100,37 @@ button:active{
 
 <div class="hero">
   <h2>Baga Nagaan Dhuftan!</h2>
-  <p>
-    Baradhu • Dandeettii kee guddifadhu •
-    Gara fuulduraatti tarkaanfadhi
-  </p>
+  <p>Baradhu • Dandeettii kee guddifadhu • Gara fuulduraatti tarkaanfadhi</p>
 </div>
 
 <section>
-
 <div class="box">
 
 <h2>📝 Galmee Miseensummaa</h2>
 
 <label>Maqaa Guutuu</label>
-<input
-  id="name"
-  type="text"
-  placeholder="Maqaa kee guutuu"
->
+<input id="name" type="text" placeholder="Maqaa kee guutuu">
 
 <label>Lakkoofsa Bilbilaa</label>
-<input
-  id="phone"
-  type="tel"
-  placeholder="09XXXXXXXX"
-  maxlength="10"
->
+<input id="phone" type="tel" placeholder="09XXXXXXXX" maxlength="10">
 
 <label>Email</label>
-<input
-  id="email"
-  type="email"
-  placeholder="Email kee"
->
+<input id="email" type="email" placeholder="Email kee">
 
 <label>Password</label>
-<input
-  id="password"
-  type="password"
-  placeholder="Password kee"
->
+<input id="password" type="password" placeholder="Password kee">
 
 <div class="document-box">
 
 <h3>🪪 Mirkaneessa Eenyummaa</h3>
 
-<p>
-Document tokko filadhu:
-</p>
+<label>Document filadhu</label>
 
 <select id="documentType">
-
-<option value="">
-Document filadhu
-</option>
-
-<option value="Digital ID">
-Digital ID
-</option>
-
-<option value="Passport">
-Passport
-</option>
-
-<option value="Driving Licence">
-Driving Licence
-</option>
-
+  <option value="">Document filadhu</option>
+  <option value="Digital ID">Digital ID</option>
+  <option value="Passport">Passport</option>
+  <option value="Driving Licence">Driving Licence</option>
 </select>
 
 <label>Document Upload</label>
@@ -185,86 +142,57 @@ Driving Licence
 >
 
 <p class="notice">
-🔒 Document kee mirkaneessaaf qofa fayyada.
-Document nama biraa hin fayyadamin.
-Document mootummaa walitti qabuun dura
-seera fi privacy kee sirriitti qopheessi.
+Document kee mirkaneessaaf qofa fayyada.
 </p>
 
 </div>
 
-<button id="signup">
-  ✅ Account Uumi
-</button>
+<button id="signup">✅ Account Uumi</button>
 
-<button id="login">
-  🔐 Seeni
-</button>
+<button id="login">🔐 Seeni</button>
 
 <p id="message"></p>
 
 </div>
-
 </section>
 
 
 <script type="module">
 
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword
-} from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
-
-  apiKey:
-  "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
-
-  authDomain:
-  "iluminanti-42c47.firebaseapp.com",
-
-  projectId:
-  "iluminanti-42c47",
-
-  storageBucket:
-  "iluminanti-42c47.firebasestorage.app",
-
-  messagingSenderId:
-  "487766650464",
-
-  appId:
-  "1:487766650464:web:af9aaf5bcb5bb17e679d05"
-
+  apiKey: "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
+  authDomain: "iluminanti-42c47.firebaseapp.com",
+  projectId: "iluminanti-42c47",
+  storageBucket: "iluminanti-42c47.firebasestorage.app",
+  messagingSenderId: "487766650464",
+  appId: "1:487766650464:web:af9aaf5bcb5bb17e679d05"
 };
 
 
 const app = initializeApp(firebaseConfig);
+
 const auth = getAuth(app);
 
+const db = getFirestore(app);
 
-const name =
-document.getElementById("name");
-
-const phone =
-document.getElementById("phone");
-
-const email =
-document.getElementById("email");
-
-const password =
-document.getElementById("password");
-
-const documentType =
-document.getElementById("documentType");
-
-const documentFile =
-document.getElementById("documentFile");
 
 const message =
 document.getElementById("message");
@@ -273,94 +201,96 @@ document.getElementById("message");
 document.getElementById("signup").onclick =
 async function(){
 
-  const userName =
-  name.value.trim();
+  const name =
+  document.getElementById("name").value.trim();
 
-  const userPhone =
-  phone.value.trim();
+  const phone =
+  document.getElementById("phone").value.trim();
 
-  const userEmail =
-  email.value.trim();
+  const email =
+  document.getElementById("email").value.trim();
 
-  const userPassword =
-  password.value;
+  const password =
+  document.getElementById("password").value;
 
-  const selectedDocument =
-  documentType.value;
+  const documentType =
+  document.getElementById("documentType").value;
 
-  const file =
-  documentFile.files[0];
+  const documentFile =
+  document.getElementById("documentFile").files[0];
 
 
-  if(!userName){
-
+  if(!name){
     message.textContent =
     "⚠️ Mee maqaa kee galchi.";
-
     return;
   }
 
-
-  if(!/^09[0-9]{8}$/.test(userPhone)){
-
+  if(!/^09[0-9]{8}$/.test(phone)){
     message.textContent =
     "⚠️ Lakkoofsa bilbilaa sirrii galchi.";
-
     return;
   }
 
-
-  if(!userEmail){
-
+  if(!email){
     message.textContent =
     "⚠️ Mee email kee galchi.";
-
     return;
   }
 
-
-  if(userPassword.length < 6){
-
+  if(password.length < 6){
     message.textContent =
     "⚠️ Password yoo xiqqaate qubee 6 qabaachuu qaba.";
-
     return;
   }
 
-
-  if(!selectedDocument){
-
+  if(!documentType){
     message.textContent =
-    "⚠️ Mee Digital ID, Passport ykn Driving Licence keessaa tokko filadhu.";
-
+    "⚠️ Document filadhu.";
     return;
   }
 
-
-  if(!file){
-
+  if(!documentFile){
     message.textContent =
-    "⚠️ Mee document kee upload godhi.";
-
+    "⚠️ Document kee filadhu.";
     return;
   }
 
 
   try{
 
+    const userCredential =
     await createUserWithEmailAndPassword(
       auth,
-      userEmail,
-      userPassword
+      email,
+      password
+    );
+
+    const user =
+    userCredential.user;
+
+
+    await setDoc(
+      doc(db, "members", user.uid),
+      {
+        name: name,
+        phone: phone,
+        email: email,
+        documentType: documentType,
+        status: "pending",
+        createdAt: new Date().toISOString()
+      }
     );
 
 
     message.textContent =
-    "✅ Account kee uumameera! Amma Seeni.";
+    "✅ Galmeen kee fudhatameera! Admin mirkaneessa.";
 
   }
 
   catch(error){
+
+    console.error(error);
 
     if(error.code ===
       "auth/email-already-in-use"){
@@ -368,12 +298,10 @@ async function(){
       message.textContent =
       "⚠️ Email kun duraan account qaba.";
 
-    }
-
-    else{
+    }else{
 
       message.textContent =
-      "❌ Account uumuu hin dandeenye.";
+      "❌ Rakkoo uumame. Mee irra deebi'i.";
 
     }
 
@@ -385,14 +313,14 @@ async function(){
 document.getElementById("login").onclick =
 async function(){
 
-  const userEmail =
-  email.value.trim();
+  const email =
+  document.getElementById("email").value.trim();
 
-  const userPassword =
-  password.value;
+  const password =
+  document.getElementById("password").value;
 
 
-  if(!userEmail || !userPassword){
+  if(!email || !password){
 
     message.textContent =
     "⚠️ Email fi password galchi.";
@@ -405,10 +333,9 @@ async function(){
 
     await signInWithEmailAndPassword(
       auth,
-      userEmail,
-      userPassword
+      email,
+      password
     );
-
 
     window.location.href =
     "dashboard.html";
