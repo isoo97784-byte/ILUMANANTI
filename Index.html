@@ -4,12 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ILUMINANTI Dashboard</title>
+<title>ILUMINANTI - Leenjii Online</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
   margin:0;
@@ -21,44 +19,31 @@ body{
 header{
   background:#172a52;
   color:white;
+  padding:22px 15px;
   text-align:center;
-  padding:25px 15px;
 }
 
-.container{
-  max-width:650px;
+.hero{
+  background:#3157a4;
+  color:white;
+  text-align:center;
+  padding:45px 20px;
+}
+
+section{
+  max-width:520px;
   margin:25px auto;
   padding:15px;
 }
 
-.card{
+.box{
   background:white;
-  padding:20px;
-  margin-bottom:18px;
+  padding:25px;
   border-radius:15px;
   box-shadow:0 4px 15px #0002;
 }
 
-.course{
-  background:#f1f5ff;
-  padding:15px;
-  margin:12px 0;
-  border-radius:10px;
-}
-
-button{
-  width:100%;
-  padding:13px;
-  margin-top:10px;
-  border:0;
-  border-radius:8px;
-  background:#172a52;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
-}
-
-input{
+input,select{
   width:100%;
   padding:13px;
   margin:8px 0 15px;
@@ -67,59 +52,41 @@ input{
   font-size:15px;
 }
 
-.payment-method{
-  border:1px solid #ddd;
-  padding:15px;
-  margin:12px 0;
-  border-radius:12px;
-  background:#fafafa;
-}
-
-.number{
-  background:#eef3ff;
-  padding:14px;
-  border-radius:8px;
-  font-size:20px;
+label{
+  display:block;
+  margin-top:10px;
   font-weight:bold;
-  word-break:break-all;
-  text-align:center;
 }
 
-.copy{
-  background:#1976d2;
-}
-
-.confirm{
-  background:#168a45;
-}
-
-.whatsapp{
-  background:#168a45;
-}
-
-.telegram{
-  background:#229ed9;
-}
-
-.call{
+button{
+  width:100%;
+  padding:13px;
+  margin-top:8px;
+  border:0;
+  border-radius:8px;
   background:#172a52;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
 }
 
-.message{
+.document-box{
+  background:#f5f7ff;
+  padding:15px;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+.notice{
+  font-size:13px;
+  color:#555;
+  line-height:1.5;
+}
+
+#message{
   margin-top:15px;
-  padding:12px;
-  border-radius:8px;
+  text-align:center;
   font-weight:bold;
-  text-align:center;
-}
-
-.logout{
-  background:#b3261e;
-}
-
-.support-text{
-  text-align:center;
-  line-height:1.6;
 }
 </style>
 </head>
@@ -128,340 +95,261 @@ input{
 
 <header>
   <h1>ILUMINANTI</h1>
-  <p>Dashboard Barataa</p>
+  <p>Leenjii Online Afaan Oromoo</p>
 </header>
 
-<div class="container">
+<div class="hero">
+  <h2>Baga Nagaan Dhuftan!</h2>
+  <p>Baradhu • Dandeettii kee guddifadhu • Gara fuulduraatti tarkaanfadhi</p>
+</div>
 
-  <!-- WELCOME -->
-  <div class="card">
-    <h2>🎓 Baga Nagaan Dhuftan!</h2>
-    <p>
-      Koorsii fi kaffaltii kee as irraa bulchi.
-    </p>
-  </div>
+<section>
+<div class="box">
 
+<h2>📝 Galmee Miseensummaa</h2>
 
-  <!-- COURSES -->
-  <div class="card">
+<label>Maqaa Guutuu</label>
+<input id="name" type="text" placeholder="Maqaa kee guutuu">
 
-    <h2>📚 Koorsiiwwan</h2>
+<label>Lakkoofsa Bilbilaa</label>
+<input id="phone" type="tel" placeholder="09XXXXXXXX" maxlength="10">
 
-    <div class="course">
-      <h3>💻 Computer Basics</h3>
-      <p>Bu'uura computer baradhu.</p>
-      <button>
-        Koorsii Jalqabi
-      </button>
-    </div>
+<label>Email</label>
+<input id="email" type="email" placeholder="Email kee">
 
-    <div class="course">
-      <h3>🌐 Digital Skills</h3>
-      <p>Dandeettii dijitaalaa baradhu.</p>
-      <button>
-        Koorsii Jalqabi
-      </button>
-    </div>
+<label>Password</label>
+<input id="password" type="password" placeholder="Password kee">
 
-    <div class="course">
-      <h3>🇬🇧 Afaan Ingilizii</h3>
-      <p>Afaan Ingilizii baradhu.</p>
-      <button>
-        Koorsii Jalqabi
-      </button>
-    </div>
+<div class="document-box">
 
-  </div>
+<h3>🪪 Mirkaneessa Eenyummaa</h3>
 
+<label>Document filadhu</label>
 
-  <!-- PAYMENT -->
-  <div class="card">
+<select id="documentType">
+  <option value="">Document filadhu</option>
+  <option value="Digital ID">Digital ID</option>
+  <option value="Passport">Passport</option>
+  <option value="Driving Licence">Driving Licence</option>
+</select>
 
-    <h2>💰 Kaffaltii</h2>
+<label>Document Upload</label>
 
-    <p>
-      Amount kaffaltu galchi.
-    </p>
+<input
+  id="documentFile"
+  type="file"
+  accept="image/*,.pdf"
+>
 
-    <label>Amount (Birr)</label>
-
-    <input
-      id="amount"
-      type="number"
-      min="1"
-      placeholder="Fakkeenya: 100"
-    >
-
-
-    <!-- ACCOUNT -->
-    <div class="payment-method">
-
-      <h3>🏦 Account Number</h3>
-
-      <p>Herrega kaffaltii:</p>
-
-      <div
-        class="number"
-        id="accountNumber">
-        1000237524547
-      </div>
-
-      <button
-        class="copy"
-        onclick="copyNumber('accountNumber')">
-        📋 Account Number Copy Godhi
-      </button>
-
-    </div>
-
-
-    <!-- TELEBIRR -->
-    <div class="payment-method">
-
-      <h3>📱 Telebirr</h3>
-
-      <p>Lakkoofsa Telebirr:</p>
-
-      <div
-        class="number"
-        id="telebirrNumber">
-        0917118488
-      </div>
-
-      <button
-        class="copy"
-        onclick="copyNumber('telebirrNumber')">
-        📋 Telebirr Number Copy Godhi
-      </button>
-
-    </div>
-
-
-    <!-- CBE BIRR -->
-    <div class="payment-method">
-
-      <h3>📱 CBE Birr</h3>
-
-      <p>Lakkoofsa CBE Birr:</p>
-
-      <div
-        class="number"
-        id="cbeNumber">
-        0917118488
-      </div>
-
-      <button
-        class="copy"
-        onclick="copyNumber('cbeNumber')">
-        📋 CBE Birr Number Copy Godhi
-      </button>
-
-    </div>
-
-
-    <!-- RECEIPT -->
-    <div class="payment-method">
-
-      <h3>🧾 Ragaa Kaffaltii</h3>
-
-      <label>
-        Transaction ID
-      </label>
-
-      <input
-        id="transactionId"
-        type="text"
-        placeholder="Transaction ID galchi"
-      >
-
-      <label>
-        Receipt / Screenshot
-      </label>
-
-      <input
-        id="receipt"
-        type="file"
-        accept="image/*"
-      >
-
-      <button
-        class="confirm"
-        onclick="confirmPayment()">
-        ✅ Confirm Payment
-      </button>
-
-      <div
-        id="paymentMessage"
-        class="message">
-      </div>
-
-    </div>
-
-  </div>
-
-
-  <!-- SUPPORT -->
-  <div class="card">
-
-    <h2>📞 Support</h2>
-
-    <p class="support-text">
-      Gaaffii ykn rakkoo yoo qabaatte
-      nu qunnami.
-      <br>
-      📱 <strong>0917118488</strong>
-    </p>
-
-
-    <!-- PHONE -->
-    <button
-      class="call"
-      onclick="window.location.href='tel:0917118488'">
-      📞 Nu Bilbili
-    </button>
-
-
-    <!-- WHATSAPP -->
-    <button
-      class="whatsapp"
-      onclick="window.open('https://wa.me/251917118488','_blank')">
-      💬 WhatsApp
-    </button>
-
-
-    <!-- TELEGRAM -->
-    <button
-      class="telegram"
-      onclick="openTelegram()">
-      ✈️ Telegram
-    </button>
-
-  </div>
-
-
-  <!-- LOGOUT -->
-  <button
-    class="logout"
-    onclick="logout()">
-    🚪 Ba'i
-  </button>
+<p class="notice">
+Document kee mirkaneessaaf qofa fayyada.
+</p>
 
 </div>
 
+<button id="signup">✅ Account Uumi</button>
 
-<script>
+<button id="login">🔐 Seeni</button>
 
-function copyNumber(id){
+<p id="message"></p>
 
-  const number =
-    document.getElementById(id)
-    .innerText.trim();
+</div>
+</section>
 
-  if(
-    navigator.clipboard &&
-    window.isSecureContext
-  ){
 
-    navigator.clipboard
-      .writeText(number)
-      .then(function(){
+<script type="module">
 
-        alert(
-          "✅ Lakkoofsi copy ta'eera: "
-          + number
-        );
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
-      })
-      .catch(function(){
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-        alert(
-          "Lakkoofsa kana copy godhi: "
-          + number
-        );
+import {
+  getFirestore,
+  doc,
+  setDoc
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-      });
 
-  }else{
+const firebaseConfig = {
+  apiKey: "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
+  authDomain: "iluminanti-42c47.firebaseapp.com",
+  projectId: "iluminanti-42c47",
+  storageBucket: "iluminanti-42c47.firebasestorage.app",
+  messagingSenderId: "487766650464",
+  appId: "1:487766650464:web:af9aaf5bcb5bb17e679d05"
+};
 
-    alert(
-      "Lakkoofsa kana copy godhi: "
-      + number
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+
+const message =
+document.getElementById("message");
+
+
+document.getElementById("signup").onclick =
+async function(){
+
+  const name =
+  document.getElementById("name").value.trim();
+
+  const phone =
+  document.getElementById("phone").value.trim();
+
+  const email =
+  document.getElementById("email").value.trim();
+
+  const password =
+  document.getElementById("password").value;
+
+  const documentType =
+  document.getElementById("documentType").value;
+
+  const documentFile =
+  document.getElementById("documentFile").files[0];
+
+
+  if(!name){
+    message.textContent =
+    "⚠️ Mee maqaa kee galchi.";
+    return;
+  }
+
+  if(!/^09[0-9]{8}$/.test(phone)){
+    message.textContent =
+    "⚠️ Lakkoofsa bilbilaa sirrii galchi.";
+    return;
+  }
+
+  if(!email){
+    message.textContent =
+    "⚠️ Mee email kee galchi.";
+    return;
+  }
+
+  if(password.length < 6){
+    message.textContent =
+    "⚠️ Password yoo xiqqaate qubee 6 qabaachuu qaba.";
+    return;
+  }
+
+  if(!documentType){
+    message.textContent =
+    "⚠️ Document filadhu.";
+    return;
+  }
+
+  if(!documentFile){
+    message.textContent =
+    "⚠️ Document kee filadhu.";
+    return;
+  }
+
+
+  try{
+
+    const userCredential =
+    await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
     );
 
-  }
+    const user =
+    userCredential.user;
 
-}
 
-
-function confirmPayment(){
-
-  const amount =
-    document.getElementById("amount")
-    .value;
-
-  const transactionId =
-    document.getElementById("transactionId")
-    .value.trim();
-
-  const receipt =
-    document.getElementById("receipt")
-    .files.length;
-
-  const message =
-    document.getElementById(
-      "paymentMessage"
+    await setDoc(
+      doc(db, "members", user.uid),
+      {
+        name: name,
+        phone: phone,
+        email: email,
+        documentType: documentType,
+        status: "pending",
+        createdAt: new Date().toISOString()
+      }
     );
 
 
-  if(!amount){
+    message.textContent =
+    "✅ Galmeen kee fudhatameera! Admin mirkaneessa.";
 
-    message.innerText =
-      "⚠️ Mee Amount galchi.";
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    if(error.code ===
+      "auth/email-already-in-use"){
+
+      message.textContent =
+      "⚠️ Email kun duraan account qaba.";
+
+    }else{
+
+      message.textContent =
+      "❌ Rakkoo uumame. Mee irra deebi'i.";
+
+    }
+
+  }
+
+};
+
+
+document.getElementById("login").onclick =
+async function(){
+
+  const email =
+  document.getElementById("email").value.trim();
+
+  const password =
+  document.getElementById("password").value;
+
+
+  if(!email || !password){
+
+    message.textContent =
+    "⚠️ Email fi password galchi.";
 
     return;
   }
 
 
-  if(!transactionId){
+  try{
 
-    message.innerText =
-      "⚠️ Mee Transaction ID galchi.";
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
 
-    return;
+    window.location.href =
+    "dashboard.html";
+
   }
 
+  catch(error){
 
-  if(!receipt){
+    message.textContent =
+    "❌ Email ykn password sirrii miti.";
 
-    message.innerText =
-      "⚠️ Mee receipt/screenshot galchi.";
-
-    return;
   }
 
-
-  message.innerText =
-    "✅ Ragaan kaffaltii kee fudhatameera.";
-
-}
-
-
-function openTelegram(){
-
-  alert(
-    "Telegram username kee yoo qabaatte, " +
-    "username sana asitti galchi."
-  );
-
-}
-
-
-function logout(){
-
-  window.location.href =
-    "index.html";
-
-}
+};
 
 </script>
 
