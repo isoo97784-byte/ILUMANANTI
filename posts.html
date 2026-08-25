@@ -7,6 +7,7 @@
 <title>ILUMINANTI - Posts</title>
 
 <style>
+
 *{
   box-sizing:border-box;
 }
@@ -25,9 +26,13 @@ header{
   padding:25px 15px;
 }
 
+header h1{
+  margin:0;
+}
+
 .container{
   max-width:650px;
-  margin:25px auto;
+  margin:20px auto;
   padding:15px;
 }
 
@@ -44,10 +49,16 @@ header{
   border-radius:12px;
   padding:18px;
   margin:15px 0;
+  background:#fff;
 }
 
 .post h2{
   margin-top:0;
+  color:#172a52;
+}
+
+.post p{
+  line-height:1.6;
 }
 
 .date{
@@ -69,7 +80,6 @@ button{
   margin-top:10px;
   border:0;
   border-radius:8px;
-  background:#172a52;
   color:white;
   font-size:16px;
   cursor:pointer;
@@ -83,20 +93,45 @@ button{
   background:#3157a4;
 }
 
-.message{
-  text-align:center;
+.call{
+  background:#172a52;
+}
+
+.whatsapp{
+  background:#168a45;
+}
+
+.home{
+  background:#172a52;
+}
+
+.support-number{
+  background:#eef3ff;
+  padding:14px;
+  border-radius:10px;
+  font-size:22px;
   font-weight:bold;
-  margin-top:15px;
+  text-align:center;
+  margin:15px 0;
 }
 
 .empty{
   text-align:center;
   color:#666;
+  padding:20px;
 }
+
+.loading{
+  text-align:center;
+  color:#3157a4;
+}
+
 </style>
+
 </head>
 
 <body>
+
 
 <header>
 
@@ -111,6 +146,29 @@ button{
 
 <div class="container">
 
+
+<!-- HOME -->
+
+<div class="card">
+
+<h2>🏠 Baga Nagaan Dhuftan!</h2>
+
+<p>
+Postoota ILUMINANTI asitti osoo
+login hin godhin dubbisuu dandeessa.
+</p>
+
+<button
+class="home"
+onclick="goHome()">
+
+🏠 Gara Fuula Jalqabaatti
+
+</button>
+
+</div>
+
+
 <!-- PUBLIC POSTS -->
 
 <div class="card">
@@ -119,7 +177,7 @@ button{
 
 <div id="posts">
 
-<p class="empty">
+<p class="loading">
 ⏳ Postoota fe'aa jira...
 </p>
 
@@ -128,17 +186,61 @@ button{
 </div>
 
 
-<!-- SIGN UP -->
+<!-- SUPPORT -->
+
+<div class="card">
+
+<h2>📞 Support</h2>
+
+<p>
+Gaaffii ykn rakkoo yoo qabaatte
+nu qunnami.
+</p>
+
+<div class="support-number">
+
+0917118488
+
+</div>
+
+
+<button
+class="call"
+onclick="window.location.href='tel:0917118488'">
+
+📞 Nu Bilbili
+
+</button>
+
+
+<button
+class="whatsapp"
+onclick="window.open(
+'https://wa.me/251917118488',
+'_blank'
+)">
+
+💬 WhatsApp
+
+</button>
+
+</div>
+
+
+<!-- MEMBERSHIP -->
 
 <div class="card">
 
 <h2>👥 Miseensa Ta'i</h2>
 
 <p>
+
 Postoota keenya dubbistee yoo
 ILUMINANTI waliin barachuu barbaadde,
 amma miseensa ta'uu dandeessa.
+
 </p>
+
 
 <button
 class="signup"
@@ -147,6 +249,7 @@ onclick="goSignup()">
 ✅ Miseensa Ta'i
 
 </button>
+
 
 <button
 class="login"
@@ -158,41 +261,52 @@ onclick="goLogin()">
 
 </div>
 
+
 </div>
 
 
 <script type="module">
 
-import { initializeApp } from
+
+import { initializeApp }
+
+from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
+
 import {
-  getFirestore,
-  collection,
-  getDocs
-} from
+
+getFirestore,
+collection,
+getDocs
+
+}
+
+from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
+/* FIREBASE */
+
 const firebaseConfig = {
 
-  apiKey:
-  "AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
+apiKey:
+"AIzaSyC6HhJdYVGkMjmhYTiqjUzYXw8cfXfv7As",
 
-  authDomain:
-  "iluminanti-42c47.firebaseapp.com",
+authDomain:
+"iluminanti-42c47.firebaseapp.com",
 
-  projectId:
-  "iluminanti-42c47",
+projectId:
+"iluminanti-42c47",
 
-  storageBucket:
-  "iluminanti-42c47.firebasestorage.app",
+storageBucket:
+"iluminanti-42c47.firebasestorage.app",
 
-  messagingSenderId:
-  "487766650464",
+messagingSenderId:
+"487766650464",
 
-  appId:
-  "1:487766650464:web:af9aaf5bcb5bb17e679d05"
+appId:
+"1:487766650464:web:af9aaf5bcb5bb17e679d05"
 
 };
 
@@ -200,119 +314,182 @@ const firebaseConfig = {
 const app =
 initializeApp(firebaseConfig);
 
+
 const db =
 getFirestore(app);
+
 
 const posts =
 document.getElementById("posts");
 
 
+/* LOAD POSTS */
+
 async function loadPosts(){
 
-  try{
+try{
 
-    const snapshot =
-    await getDocs(
-      collection(db,"posts")
-    );
-
-
-    if(snapshot.empty){
-
-      posts.innerHTML = `
-        <p class="empty">
-          📭 Ammaaf post hin jiru.
-        </p>
-      `;
-
-      return;
-    }
+const snapshot =
+await getDocs(
+collection(db,"posts")
+);
 
 
-    posts.innerHTML = "";
+if(snapshot.empty){
+
+posts.innerHTML = `
+
+<p class="empty">
+
+📭 Ammaaf post hin jiru.
+
+</p>
+
+`;
+
+return;
+
+}
 
 
-    snapshot.forEach(function(postDoc){
-
-      const data =
-      postDoc.data();
+posts.innerHTML = "";
 
 
-      const article =
-      document.createElement("article");
+snapshot.forEach(function(postDoc){
 
-      article.className = "post";
-
-
-      article.innerHTML = `
-
-        <h2>
-          ${data.title || "Post"}
-        </h2>
-
-        ${
-          data.image
-          ?
-          `<img
-             class="post-image"
-             src="${data.image}"
-             alt="Post image">
-          `
-          :
-          ""
-        }
-
-        <p>
-          ${data.content || ""}
-        </p>
-
-        <p class="date">
-          📅 ${data.date || ""}
-        </p>
-
-      `;
+const data =
+postDoc.data();
 
 
-      posts.appendChild(article);
+const article =
+document.createElement("article");
 
-    });
 
-  }
+article.className =
+"post";
 
-  catch(error){
 
-    console.error(error);
+article.innerHTML = `
 
-    posts.innerHTML = `
-      <p class="empty">
-        ❌ Postoota fe'uu hin dandeenye.
-      </p>
-    `;
+<h2>
+${escapeHTML(data.title || "Post")}
+</h2>
 
-  }
+
+${
+data.image
+?
+`
+<img
+class="post-image"
+src="${escapeAttribute(data.image)}"
+alt="Post image">
+`
+:
+""
+}
+
+
+<p>
+${escapeHTML(data.content || "")}
+</p>
+
+
+<p class="date">
+
+📅
+${escapeHTML(data.date || "")}
+
+</p>
+
+`;
+
+
+posts.appendChild(article);
+
+});
+
+
+}
+
+catch(error){
+
+console.error(error);
+
+
+posts.innerHTML = `
+
+<p class="empty">
+
+❌ Postoota fe'uu hin dandeenye.
+
+</p>
+
+`;
+
+}
+
+}
+
+
+/* SECURITY */
+
+function escapeHTML(text){
+
+const div =
+document.createElement("div");
+
+div.textContent =
+String(text);
+
+return div.innerHTML;
+
+}
+
+
+function escapeAttribute(text){
+
+return String(text)
+.replace(/&/g,"&amp;")
+.replace(/"/g,"&quot;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;");
+
+}
+
+
+/* NAVIGATION */
+
+function goHome(){
+
+window.location.href =
+"index.html";
 
 }
 
 
 function goSignup(){
 
-  window.location.href =
-  "index.html";
+window.location.href =
+"index.html";
 
 }
 
 
 function goLogin(){
 
-  window.location.href =
-  "index.html";
+window.location.href =
+"index.html";
 
 }
 
 
+/* START */
+
 loadPosts();
 
 </script>
+
 
 </body>
 </html>
