@@ -103,7 +103,7 @@ button:active{
 
 
 /* =========================
-   PUBLIC POSTS
+PUBLIC POSTS
 ========================= */
 
 .posts-box{
@@ -157,6 +157,29 @@ button:active{
 .loading{
   text-align:center;
   color:#666;
+}
+
+
+/* =========================
+SUPPORT
+========================= */
+
+.support-number{
+  background:#eef3ff;
+  padding:15px;
+  border-radius:10px;
+  text-align:center;
+  font-size:22px;
+  font-weight:bold;
+  margin:15px 0;
+}
+
+.call{
+  background:#172a52;
+}
+
+.whatsapp{
+  background:#168a45;
 }
 
 </style>
@@ -216,6 +239,47 @@ ILUMINANTI irraa.
 </p>
 
 </div>
+
+</div>
+
+
+<!-- =========================
+SUPPORT
+========================= -->
+
+<div class="box">
+
+<h2>
+📞 Support
+</h2>
+
+<p>
+Gaaffii ykn rakkoo yoo qabaatte
+nu qunnami.
+</p>
+
+<div class="support-number">
+0917118488
+</div>
+
+<button
+class="call"
+onclick="window.location.href='tel:0917118488'">
+
+📞 Nu Bilbili
+
+</button>
+
+<button
+class="whatsapp"
+onclick="window.open(
+'https://wa.me/251917118488',
+'_blank'
+)">
+
+💬 WhatsApp
+
+</button>
 
 </div>
 
@@ -346,6 +410,7 @@ Document nama biraa hin fayyadamin.
 
 </div>
 
+
 </section>
 
 
@@ -461,9 +526,11 @@ db,
 if(snapshot.empty){
 
 postsBox.innerHTML = `
+
 <p class="no-posts">
 📭 Ammaaf post hin jiru.
 </p>
+
 `;
 
 return;
@@ -488,23 +555,14 @@ post.className =
 "post";
 
 
-/*
-Mata-duree
-*/
-
 const title =
 document.createElement("h3");
 
 title.textContent =
 data.title || "Post";
 
-
 post.appendChild(title);
 
-
-/*
-Suuraa
-*/
 
 if(data.image){
 
@@ -525,10 +583,6 @@ post.appendChild(image);
 }
 
 
-/*
-Barreeffama
-*/
-
 const content =
 document.createElement("div");
 
@@ -540,10 +594,6 @@ data.content || "";
 
 post.appendChild(content);
 
-
-/*
-Guyyaa
-*/
 
 const date =
 document.createElement("div");
@@ -569,17 +619,17 @@ catch(error){
 console.error(error);
 
 postsBox.innerHTML = `
+
 <p class="no-posts">
 ❌ Postoota fe'uu hin dandeenye.
 </p>
+
 `;
 
 }
 
 }
 
-
-/* Postoota jalqaba fe'i */
 
 loadPublicPosts();
 
