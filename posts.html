@@ -7,7 +7,6 @@
 <title>ILUMINANTI - Posts</title>
 
 <style>
-
 *{
   box-sizing:border-box;
 }
@@ -32,7 +31,7 @@ header h1{
 
 .container{
   max-width:650px;
-  margin:20px auto;
+  margin:25px auto;
   padding:15px;
 }
 
@@ -49,7 +48,7 @@ header h1{
   border-radius:12px;
   padding:18px;
   margin:15px 0;
-  background:#fff;
+  background:white;
 }
 
 .post h2{
@@ -85,6 +84,10 @@ button{
   cursor:pointer;
 }
 
+.home{
+  background:#172a52;
+}
+
 .signup{
   background:#168a45;
 }
@@ -99,10 +102,6 @@ button{
 
 .whatsapp{
   background:#168a45;
-}
-
-.home{
-  background:#172a52;
 }
 
 .support-number{
@@ -127,7 +126,6 @@ button{
 }
 
 </style>
-
 </head>
 
 <body>
@@ -147,7 +145,7 @@ button{
 <div class="container">
 
 
-<!-- HOME -->
+<!-- WELCOME -->
 
 <div class="card">
 
@@ -169,7 +167,7 @@ onclick="goHome()">
 </div>
 
 
-<!-- PUBLIC POSTS -->
+<!-- POSTS -->
 
 <div class="card">
 
@@ -198,11 +196,8 @@ nu qunnami.
 </p>
 
 <div class="support-number">
-
 0917118488
-
 </div>
-
 
 <button
 class="call"
@@ -211,7 +206,6 @@ onclick="window.location.href='tel:0917118488'">
 📞 Nu Bilbili
 
 </button>
-
 
 <button
 class="whatsapp"
@@ -234,13 +228,10 @@ onclick="window.open(
 <h2>👥 Miseensa Ta'i</h2>
 
 <p>
-
 Postoota keenya dubbistee yoo
 ILUMINANTI waliin barachuu barbaadde,
 amma miseensa ta'uu dandeessa.
-
 </p>
-
 
 <button
 class="signup"
@@ -249,7 +240,6 @@ onclick="goSignup()">
 ✅ Miseensa Ta'i
 
 </button>
-
 
 <button
 class="login"
@@ -267,26 +257,16 @@ onclick="goLogin()">
 
 <script type="module">
 
-
 import { initializeApp }
-
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
-
-getFirestore,
-collection,
-getDocs
-
+  getFirestore,
+  collection,
+  getDocs
 }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-
-/* FIREBASE */
 
 const firebaseConfig = {
 
@@ -314,16 +294,12 @@ appId:
 const app =
 initializeApp(firebaseConfig);
 
-
 const db =
 getFirestore(app);
-
 
 const posts =
 document.getElementById("posts");
 
-
-/* LOAD POSTS */
 
 async function loadPosts(){
 
@@ -340,9 +316,7 @@ if(snapshot.empty){
 posts.innerHTML = `
 
 <p class="empty">
-
 📭 Ammaaf post hin jiru.
-
 </p>
 
 `;
@@ -364,51 +338,63 @@ postDoc.data();
 const article =
 document.createElement("article");
 
-
 article.className =
 "post";
 
 
-article.innerHTML = `
+const title =
+document.createElement("h2");
 
-<h2>
-${escapeHTML(data.title || "Post")}
-</h2>
+title.textContent =
+data.title || "Post";
 
 
-${
-data.image
-?
-`
-<img
-class="post-image"
-src="${escapeAttribute(data.image)}"
-alt="Post image">
-`
-:
-""
+article.appendChild(title);
+
+
+if(data.image){
+
+const image =
+document.createElement("img");
+
+image.className =
+"post-image";
+
+image.src =
+data.image;
+
+image.alt =
+"Post image";
+
+article.appendChild(image);
+
 }
 
 
-<p>
-${escapeHTML(data.content || "")}
-</p>
+const content =
+document.createElement("p");
+
+content.textContent =
+data.content || "";
+
+article.appendChild(content);
 
 
-<p class="date">
+const date =
+document.createElement("p");
 
-📅
-${escapeHTML(data.date || "")}
+date.className =
+"date";
 
-</p>
+date.textContent =
+"📅 " + (data.date || "");
 
-`;
+article.appendChild(date);
 
 
 posts.appendChild(article);
 
 });
-
 
 }
 
@@ -416,13 +402,10 @@ catch(error){
 
 console.error(error);
 
-
 posts.innerHTML = `
 
 <p class="empty">
-
 ❌ Postoota fe'uu hin dandeenye.
-
 </p>
 
 `;
@@ -431,34 +414,6 @@ posts.innerHTML = `
 
 }
 
-
-/* SECURITY */
-
-function escapeHTML(text){
-
-const div =
-document.createElement("div");
-
-div.textContent =
-String(text);
-
-return div.innerHTML;
-
-}
-
-
-function escapeAttribute(text){
-
-return String(text)
-.replace(/&/g,"&amp;")
-.replace(/"/g,"&quot;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;");
-
-}
-
-
-/* NAVIGATION */
 
 function goHome(){
 
@@ -484,12 +439,9 @@ window.location.href =
 }
 
 
-/* START */
-
 loadPosts();
 
 </script>
-
 
 </body>
 </html>
